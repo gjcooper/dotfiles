@@ -1,0 +1,58 @@
+#Set vi keys
+set-window-option -g mode-keys vi # vi key
+set-option -g status-keys vi
+
+#Setting 256-colour terminal
+set -g default-terminal "screen-256color"
+#set -g default-terminal "screen-16color"
+
+set-window-option -g utf8 on # utf8 support
+
+set-window-option -g mode-mouse off # disable mouse
+
+set-window-option -g automatic-rename off # auto name
+
+# Less obnoxious colors
+set -g pane-active-border-fg cyan
+set -g pane-active-border-bg default
+set -g pane-border-fg black
+set -g pane-border-bg default
+
+# Create an environment that zsh can make sense of
+# set-environment -g tmuxTERM $TERM
+set-environment -g INSCREEN yes
+set-environment TMUX_TITLE yes
+
+#Set vim navigation keys for panes
+unbind-key j
+bind-key j select-pane -D 
+
+unbind-key k
+bind-key k select-pane -U
+
+unbind-key h
+bind-key h select-pane -L
+
+unbind-key l
+bind-key l select-pane -R
+
+bind-key c new-window -n ''
+## status bar
+#set-option -g status-utf8 on
+#set-option -g status-justify left
+#set-option -g status-bg default
+#set-option -g status-fg white
+#set-option -g message-attr none
+#set-option -g message-bg white
+#set-option -g message-fg black
+#set-window-option -g window-status-bell-bg cyan
+#set-window-option -g window-status-bell-attr bright
+#set-window-option -g window-status-activity-bg red
+#set-window-option -g window-status-activity-attr bright
+#set-option -g status-interval 5
+#set-option -g status-left-length 30
+##set-option -g status-left '#[fg=magenta]» #[fg=blue,bold]#T#[default]'
+#set-option -g status-left  '#[fg=cyan][#S#[fg=black,bold]#P#[default]#[fg=cyan]]#[default]'
+#set-option -g status-right "#[fg=red]#(battery Discharging)#[fg=blue]#(battery Charging) #[fg=$TMUX_SHELL_COLOR]$sHost#[default]#[fg=cyan] %d %b %R"
+
+bind r source-file ~/.tmux.conf

@@ -1,0 +1,104 @@
+# Path to your oh-my-zsh configuration.
+ZSH=$HOME/.oh-my-zsh
+ZSH_CUSTOM=$HOME/.zsh_custom
+
+# Set name of the theme to load.
+# Look in ~/.oh-my-zsh/themes/
+# Optionally, if you set this to "random", it'll load a random theme each
+# time that oh-my-zsh is loaded.
+ZSH_THEME="gazz"
+
+#Fancy renaming for files
+autoload -U zmv
+alias mmv='noglob zmv -W'
+
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+alias gdt='git difftool'
+compdef _git gdt=git-difftool
+alias glc='git log --pretty=format:"%C(bold green)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=relative'
+compdef _git glc=git-log
+alias glca='git log --pretty=format:"%C(bold green)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=relative --all'
+compdef _git glca=git-log
+alias glga='git log --pretty=format:"%C(bold green)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=relative --all --graph'
+compdef _git glga=git-log
+alias glgas='git log --pretty=format:"%C(bold green)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=relative --all --graph --simplify-by-decoration'
+compdef _git glga=git-log
+alias glcd='git log --pretty=format:"%C(bold green)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat'
+compdef _git glcd=git-log
+alias p3='python3'
+alias d2u='dos2unix'
+alias apu='sudo apt-get update'
+alias papu='sudo -E apt-get update'
+alias apug='sudo apt-get upgrade'
+alias papug='sudo -E apt-get upgrade'
+
+# Set to this to use case-sensitive completion
+CASE_SENSITIVE="true"
+
+# Comment this out to disable bi-weekly auto-update checks
+# DISABLE_AUTO_UPDATE="true"
+
+# Uncomment to change how often before auto-updates occur? (in days)
+# export UPDATE_ZSH_DAYS=13
+
+# Uncomment following line if you want to disable colors in ls
+# DISABLE_LS_COLORS="true"
+
+# Uncomment following line if you want to disable autosetting terminal title.
+DISABLE_AUTO_TITLE="true"
+
+# Uncomment following line if you want to disable command autocorrection
+# DISABLE_CORRECTION="true"
+
+# Uncomment following line if you want red dots to be displayed while waiting for completion
+# COMPLETION_WAITING_DOTS="true"
+
+# Uncomment following line if you want to disable marking untracked files under
+# VCS as dirty. This makes repository status check for large repositories much,
+# much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+plugins=(git vi-mode command-not-found)
+
+source $ZSH/oh-my-zsh.sh
+
+# Customize to your needs...
+
+#Source the fsl setup script if we can find it...
+if [[ -e /etc/fsl/fsl.sh ]]
+then
+    source /etc/fsl/fsl.sh;
+fi
+
+#Source the freesurfer setup script if we can find it
+if [[ -e /usr/local/freesurfer/SetUpFreeSurfer.sh ]]
+then
+    FREESURFER_HOME=/usr/local/freesurfer
+    source $FREESURFER_HOME/SetUpFreeSurfer.sh
+fi
+
+#Setup path, make sure it has unique values. Only add if path is resolved...
+typeset -U path
+
+path+=(/usr/lib/mrtrix/bin(N))
+path+=(/usr/local/Slicer-4.2.2-1-linux-amd64/bin(N))
+path+=(/usr/local/DicomBrowser-1.5.2/bin(N))
+path+=(/usr/local/camino/bin(N))
+path+=(/usr/local/bin/dtk(N))
+
+if [[ -e ~/.dircolors ]]
+then
+    eval `dircolors ~/.dircolors`
+fi
+
+alias tmux="TERM=xterm-256color tmux"
+
+if [[ -e ~/.mater.sh ]]
+then
+    source ~/.mater.sh
+fi

@@ -1,0 +1,22 @@
+[user]
+        name = AUTHORNAME
+        email = AUTHOREMAIL
+[credential]
+        helper = GIT_CREDENTIAL_HELPER
+[core]
+	editor = vim
+	autocrlf = input
+	safecrlf = false
+	fileMode = false
+[merge]
+	tool = vimdiff
+[https]
+[http]
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = true
+[alias]
+	df = difftool
+[push]
+	default = matching

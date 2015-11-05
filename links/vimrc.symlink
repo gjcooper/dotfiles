@@ -1,0 +1,117 @@
+"remove vi compatibility
+" set nocompatible " Not needed when vimrc exists
+
+" Required Vundle setup
+filetype off
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+" The following are examples of different formats supported.
+" Keep Plugin commands between vundle#begin/end.
+" plugin on GitHub repo
+Plugin 'nvie/vim-flake8'
+
+Plugin 'tpope/vim-sensible'
+Plugin 'tpope/vim-surround'
+
+Plugin 'fs111/pydoc.vim'
+
+Plugin 'gjcooper/vim-nbs-pres'
+
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'tomtom/tlib_vim'
+Plugin 'garbas/vim-snipmate'
+
+Plugin 'altercation/vim-colors-solarized'
+
+call vundle#end()            " required
+filetype plugin indent on    " required
+" Modelines=0 means vim does not check files it is opening for commands to
+" follow
+set modelines=0
+
+"set tab stops to 4 character width and expand tabs to spaces
+"Ideal setup for python development
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+
+" set encoding=utf-8 " Shouldn't be necessary as terminal set to utf-8
+set showmode
+"Allow a modified buffer to be placed in the background
+set hidden
+"When matching list all matches and complete till longest matching string
+set wildmode=list:longest
+"Show visual warning rather than beeping
+set visualbell
+"Highlight current line
+set cursorline
+" set ttyfast "Should be set by default in most terminals
+"Show line numbers as relative to current line
+set relativenumber
+
+"Change mapleader from default \ to ,
+let mapleader = ","
+
+"Use normal regex characters in normal and visual/select mode search
+nnoremap / /\v
+vnoremap / /\v
+"Deal with case sensitive search intelligently, ignore case when searching
+"with lower case chars only
+set ignorecase
+set smartcase
+"global search and replace is default
+set gdefault
+" When you insert a bracket briefly switch to matching bracket if on the page
+set showmatch
+"Highlight search results as you type
+set hlsearch
+"Fix pasting via right-click and autoindenting
+set pastetoggle=<F2>
+"clear out search by typing ,<space>
+nnoremap <leader><space> :noh<cr>
+"Run current buffer with python
+autocmd FileType python nnoremap <silent> <leader>r :!clear;python %<CR> 
+"Python we definitely want to expandtab (and enaml - Python superset)
+autocmd FileType python\|enaml set expandtab
+"We also want to set foldmethod as indent for python/enaml
+autocmd FileType python\|enaml set foldmethod=indent
+"We also want to set foldnestmax for python/enaml
+autocmd FileType python\|enaml set foldnestmax=3
+"Auto word wrap for tex files
+autocmd FileType plaintex set tw=79
+
+"tab key matches bracket pairs
+nnoremap <tab> %
+vnoremap <tab> %
+
+"Search for current word under cursor with F4
+map <F4> :execute " grep -srnw --binary-files=without-match --exclude=.swp --exclude-dir=.git . -e " . expand("<cword>") . " " <bar> cwindow<CR>
+
+" Create visual column for "screen width"
+set colorcolumn=80
+
+" Load the solarised colour scheme
+set background=dark
+set t_Co=16
+let g:solarized_termcolors=16
+let g:solarized_underline=1
+colorscheme solarized
+
+function! s:DiffWithSaved()
+  let filetype=&ft
+  diffthis
+  vnew | r # | normal! 1Gdd
+  diffthis
+  exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
+endfunction
+com! DiffSaved call s:DiffWithSaved()
+
+" Enable python code highliting for enaml files
+"au BufNewFile,BufRead *.enaml set filetype=enaml
