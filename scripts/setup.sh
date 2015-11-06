@@ -129,15 +129,19 @@ setup_vim () {
   if [ ! -d ~/.vim/bundle/Vundle.vim ]
   then
     git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+  else
+    info 'Vundle.vim already in .vim dir'
   fi
   vim +PluginInstall +qall
 }
 
 setup_ohmyzsh () {
   info 'Installing ohmyzsh'
-  if [ ! -d ~/.vim/bundle/Vundle.vim ]
+  if [ ! -d ~/.oh-my-zsh ]
   then
-    git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+    git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+  else
+    info 'oh-my-zsh directory already found in home dir'
   fi
 }
  
