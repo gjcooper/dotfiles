@@ -46,6 +46,24 @@ setup_gitconfig () {
   fi
 }
 
+setup_dircolors () {
+  if ! [ -d $DOTFILES_ROOT/local/dircolors ]
+  then
+    git clone https://github.com/seebi/dircolors-solarized.git $DOTFILES_ROOT/local/dircolors
+    user ' - What is your preferred colour scheme? (dark/light)'
+    read -e dircolors_scheme
+    if [ "$dircolors_scheme" == "dark" ]
+    then
+      ln -s $DOTFILES_ROOT/local/dircolors/dircolors.ansi-dark ~/.dircolors
+    elif [ "$dircolors_scheme" == "light" ]
+    then
+      ln -s $DOTFILES_ROOT/local/dircolors/dircolors.ansi-light ~/.dircolors
+    else
+      fail "Colour scheme not recognised"
+    fi
+    success 'dircolors'
+  fi
+}
 
 link_file () {
   local src=$1 dst=$2
@@ -147,6 +165,7 @@ setup_ohmyzsh () {
  
 install_sw
 setup_gitconfig
+setup_dircolors
 install_dotfiles
 setup_vim
 setup_ohmyzsh
