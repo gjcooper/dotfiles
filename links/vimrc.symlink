@@ -15,7 +15,7 @@ Plugin 'VundleVim/Vundle.vim'
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
-Plugin 'gjcooper/vim-flake8'
+Plugin 'nvie/vim-flake8'
 
 Plugin 'tpope/vim-sensible'
 Plugin 'tpope/vim-surround'
@@ -93,6 +93,20 @@ vnoremap <tab> %
 
 "Search for current word under cursor with F4
 map <F4> :execute " grep -srnw --binary-files=without-match --exclude=.swp --exclude-dir=.git . -e " . expand("<cword>") . " " <bar> cwindow<CR>
+
+"Customise vim-flake8 plugin to work with flake8.2/flake8.3 binaries
+autocmd FileType python map <buffer> <F7> :call Flake8Python2()<CR>
+autocmd FileType python map <buffer> <F8> :call Flake8Python3()<CR>
+
+function Flake8Python2()
+	let g:flake8_cmd="/usr/local/bin/flake8.2"
+	call Flake8()
+endfunction
+
+function Flake8Python3()
+	let g:flake8_cmd="/usr/local/bin/flake8.3"
+	call Flake8()
+endfunction
 
 " Create visual column for "screen width"
 set colorcolumn=80
