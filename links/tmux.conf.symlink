@@ -36,7 +36,10 @@ bind-key h select-pane -L
 unbind-key l
 bind-key l select-pane -R
 
-bind-key c new-window -n ''
+# Current path is default for new window/panes - May fail pre tmux 1.9
+bind '"' split-window -c "#{pane_current_path}"
+bind % split-window -h -c "#{pane_current_path}"
+bind c new-window -c "#{pane_current_path}" -n ''
 ## status bar
 #set-option -g status-utf8 on
 #set-option -g status-justify left
