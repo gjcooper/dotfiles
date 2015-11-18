@@ -17,4 +17,6 @@ alias apu='sudo apt-get update'
 alias papu='sudo -E apt-get update'
 alias apug='sudo apt-get upgrade'
 alias papug='sudo -E apt-get upgrade'
-
+alias gpall='git push -u origin --all && git push -u origin --tags'
+compdef _git gpall=git-push
+alias ip3='ipython3'
