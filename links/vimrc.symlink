@@ -29,6 +29,7 @@ Plugin 'tomtom/tlib_vim'
 Plugin 'garbas/vim-snipmate'
 
 Plugin 'altercation/vim-colors-solarized'
+Plugin 'will133/vim-dirdiff'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
