@@ -20,3 +20,5 @@ alias papug='sudo -E apt-get upgrade'
 alias gpall='git push -u origin --all && git push -u origin --tags'
 compdef _git gpall=git-push
 alias ip3='ipython3'
+alias vena='source venv/bin/activate'
+alias vend='deactivate'
