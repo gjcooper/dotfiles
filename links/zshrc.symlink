@@ -69,6 +69,10 @@ path+=(/usr/local/DicomBrowser-1.5.2/bin(N))
 path+=(/usr/local/camino/bin(N))
 path+=(/usr/local/bin/dtk(N))
 
+export -TU PYTHONPATH pythonpath
+
+pythonpath+=(/home/gavin/Analysis/uonpype(N))
+
 if [[ -e ~/.dircolors ]]
 then
     eval `dircolors ~/.dircolors`
