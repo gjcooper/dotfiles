@@ -58,6 +58,23 @@ setup_gitconfig () {
   fi
 }
 
+setup_pypirc () {
+  if ! [ -f links/pypirc.symlink ]
+  then
+    info 'setup pypirc'
+	user ' - What is your pypi user name?'
+    read -e pypi_username
+	user ' - What is your pypi password?'
+    read -e pypi_passwd
+	user ' - What is your testpypi user name?'
+    read -e tpypi_username
+	user ' - What is your testpypi password?'
+    read -e tpypi_passwd
+    sed -e "s/PYPI_USERNAME/$pypi_username/g" -e "s/PYPI_PASSWD/$pypi_passwd/g" -e "s/TEST_USERNAME/$tpypi_username/g" -e "s/TEST_PASSWD/tpypi_passwd/g" links/pypirc.symlink.base > links/pypirc.symlink
+    success 'pypirc'
+  fi
+}
+
 setup_dircolors () {
   if ! [ -d $DOTFILES_ROOT/local/dircolors ]
   then
@@ -177,6 +194,7 @@ setup_ohmyzsh () {
  
 install_sw
 setup_gitconfig
+setup_pypirc
 setup_dircolors
 install_dotfiles
 setup_vim
