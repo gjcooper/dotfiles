@@ -70,7 +70,7 @@ setup_pypirc () {
     read -e tpypi_username
 	user ' - What is your testpypi password?'
     read -e tpypi_passwd
-    sed -e "s/PYPI_USERNAME/$pypi_username/g" -e "s/PYPI_PASSWD/$pypi_passwd/g" -e "s/TEST_USERNAME/$tpypi_username/g" -e "s/TEST_PASSWD/tpypi_passwd/g" links/pypirc.symlink.base > links/pypirc.symlink
+    sed -e "s/PYPI_USERNAME/$pypi_username/g" -e "s/PYPI_PASSWD/$pypi_passwd/g" -e "s/TEST_USERNAME/$tpypi_username/g" -e "s/TEST_PASSWD/$tpypi_passwd/g" links/pypirc.symlink.base > links/pypirc.symlink
     success 'pypirc'
   fi
 }
