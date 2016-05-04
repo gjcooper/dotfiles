@@ -41,7 +41,7 @@ DISABLE_AUTO_TITLE="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git vi-mode command-not-found my-aliases)
+plugins=(git vi-mode command-not-found my-aliases history-substring-search)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -80,8 +80,3 @@ then
 fi
 
 alias tmux="TERM=xterm-256color tmux"
-
-if [[ -e ~/.mater.sh ]]
-then
-    source ~/.mater.sh
-fi
