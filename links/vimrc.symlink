@@ -31,7 +31,9 @@ Plugin 'honza/vim-snippets'
 
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'will133/vim-dirdiff'
+
 Plugin 'raimon49/requirements.txt.vim'
+Plugin 'Glench/Vim-Jinja2-Syntax'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
