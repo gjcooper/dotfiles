@@ -84,11 +84,10 @@ nnoremap <leader><space> :noh<cr>
 "Run current buffer with python
 autocmd FileType python nnoremap <silent> <leader>r :!clear;python %<CR> 
 "Python we definitely want to expandtab (and enaml - Python superset)
-autocmd FileType python\|enaml set expandtab
 "We also want to set foldmethod as indent for python/enaml
-autocmd FileType python\|enaml set foldmethod=indent
 "We also want to set foldnestmax for python/enaml
-autocmd FileType python\|enaml set foldnestmax=3
+" Create visual column for "screen width"
+autocmd FileType python\|enaml set expandtab cc=80 fdm=indent foldnestmax=3
 "Auto word wrap for tex files
 autocmd FileType plaintex set tw=79
 
@@ -112,9 +111,6 @@ function Flake8Python3()
 	let g:flake8_cmd="/usr/local/bin/flake8.3"
 	call Flake8()
 endfunction
-
-" Create visual column for "screen width"
-set colorcolumn=80
 
 " Load the solarised colour scheme
 set background=dark
