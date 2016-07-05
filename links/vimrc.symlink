@@ -43,11 +43,6 @@ filetype plugin indent on    " required
 " follow
 set modelines=0
 
-"set tab stops to 4 character width and expand tabs to spaces
-"Ideal setup for python development
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
 
 " set encoding=utf-8 " Shouldn't be necessary as terminal set to utf-8
 set showmode
@@ -91,7 +86,9 @@ autocmd FileType python nnoremap <silent> <leader>r :!clear;python %<CR>
 "We also want to set foldmethod as indent for python/enaml
 "We also want to set foldnestmax for python/enaml
 " Create visual column for "screen width"
-autocmd FileType python\|enaml set expandtab cc=80 fdm=indent foldnestmax=3
+autocmd FileType python\|enaml set expandtab sts=4 ts=4 sw=4 cc=80 fdm=indent foldnestmax=3
+" Narrower tabwidth for html/css
+autocmd FileType html\|css set expandtab sts=2 ts=2 sw=2
 "Auto word wrap for tex files
 autocmd FileType plaintex set tw=79
 
