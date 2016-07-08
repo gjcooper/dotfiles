@@ -10,6 +10,7 @@
 	fileMode = false
 [merge]
 	tool = vimdiff
+	conflictstyle = diff3
 [https]
 [http]
 [diff]
