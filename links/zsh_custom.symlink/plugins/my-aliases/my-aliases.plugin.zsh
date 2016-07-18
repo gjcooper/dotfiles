@@ -23,3 +23,12 @@ alias ip3='ipython3'
 alias vena='source venv/bin/activate'
 alias vend='deactivate'
 alias coverr='coverage run -m unittest discover && coverage report -m'
+
+# Functions
+venm () {
+	pyvenv venv
+	vena
+	pip install -U pip
+	pip install pip-tools
+	pip install coverage
+}
