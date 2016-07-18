@@ -1,4 +1,5 @@
 # Example aliases
+# Extra git aliases (on top of zsh standard ones)
 alias gdt='git difftool'
 compdef _git gdt=git-difftool
 alias glc='git log --pretty=format:"%C(bold green)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=relative'
@@ -13,14 +14,12 @@ alias glcd='git log --pretty=format:"%C(bold green)%h%Cred%d\\ %Creset%s%Cblue\\
 compdef _git glcd=git-log
 alias gcheck='git ls-files -o'
 compdef _git gcheck=git-ls-files
-alias p3='python3'
-alias d2u='dos2unix'
-alias apu='sudo apt-get update'
-alias papu='sudo -E apt-get update'
-alias apug='sudo apt-get upgrade'
-alias papug='sudo -E apt-get upgrade'
 alias gpall='git push -u origin --all && git push -u origin --tags'
 compdef _git gpall=git-push
+#Shortenings
+alias p3='python3'
+alias d2u='dos2unix'
 alias ip3='ipython3'
 alias vena='source venv/bin/activate'
 alias vend='deactivate'
+alias coverr='coverage run -m unittest discover && coverage report -m'
