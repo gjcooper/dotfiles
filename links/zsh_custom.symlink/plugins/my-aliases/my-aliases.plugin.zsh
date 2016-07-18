@@ -11,6 +11,8 @@ alias glgas='git log --pretty=format:"%C(bold green)%h\\ %ad%Cred%d\\ %Creset%s%
 compdef _git glga=git-log
 alias glcd='git log --pretty=format:"%C(bold green)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat'
 compdef _git glcd=git-log
+alias gcheck='git ls-files -o'
+compdef _git gcheck=git-ls-files
 alias p3='python3'
 alias d2u='dos2unix'
 alias apu='sudo apt-get update'
