@@ -44,7 +44,7 @@ bind c new-window -c "#{pane_current_path}" -n ''
 ## status bar
 #set-option -g status-utf8 on
 #set-option -g status-justify left
-#set-option -g status-bg default
+set-option -g status-bg magenta
 #set-option -g status-fg white
 #set-option -g message-attr none
 #set-option -g message-bg white
