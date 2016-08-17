@@ -74,6 +74,9 @@ export -TU PYTHONPATH pythonpath
 
 pythonpath+=(/home/gavin/Analysis/uonpype(N))
 
+export EDITOR=/usr/bin/vim
+export VISUAL=/usr/bin/vim
+
 if [[ -e ~/.dircolors ]]
 then
     eval `dircolors ~/.dircolors`
