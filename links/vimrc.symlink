@@ -77,7 +77,10 @@ set hlsearch
 "Fix pasting via right-click and autoindenting
 set pastetoggle=<F2>
 "Set listchars for :set list
-set listchars=tab:»\ ,extends:›,precedes:‹,nbsp:·,trail:·,eol:↲,space:_
+set listchars=tab:»\ ,extends:›,precedes:‹,nbsp:·,trail:·,eol:↲
+if has("patch-7.4.710")
+  set listchars+=space:_
+endif
 "clear out search by typing ,<space>
 nnoremap <leader><space> :noh<cr>
 "Run current buffer with python
