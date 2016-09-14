@@ -13,8 +13,8 @@ if-shell "[[ `tmux -V | cut -d' ' -f2` -lt 2.1 ]]" 'set-window-option -g mode-mo
 
 set-window-option -g automatic-rename off # auto name
 
-# Less obnoxious colors
-set -g pane-active-border-fg cyan
+# Less obnoxious colors (server defaults)
+set -g pane-active-border-fg colour89
 set -g pane-active-border-bg default
 set -g pane-border-fg black
 set -g pane-border-bg default
