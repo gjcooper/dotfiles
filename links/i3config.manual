@@ -150,7 +150,7 @@ bindsym $mod+Shift+n exec i3-input -F 'rename workspace to "%s"' -P 'New name: '
 # bindsym $mod+shift+f exec pcmanfm
 
 # Open applications on specific workspaces
-assign [class="Firefox"] $tag3
+assign [class="google-chrome"] $tag3
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
