@@ -94,30 +94,30 @@ bindsym $mod+a focus parent
 ##########################################################################
 
 # Workspace names
-set $tag1 "1 terminator"
-set $tag2 "2 ranger"
-set $tag3 "3 web"
+set $tag1 "1: terminator"
+set $tag2 "2: ranger"
+set $tag3 "3: web"
 
 # Switch to workspace
-bindsym $mod+1 workspace $tag1
-bindsym $mod+2 workspace $tag2
-bindsym $mod+3 workspace $tag3
-bindsym $mod+4 workspace 4
-bindsym $mod+5 workspace 5
-bindsym $mod+6 workspace 6
-bindsym $mod+7 workspace 7
-bindsym $mod+8 workspace 8
-bindsym $mod+9 workspace 9
-bindsym $mod+0 workspace 0
+bindsym $mod+1 workspace number $tag1
+bindsym $mod+2 workspace number $tag2
+bindsym $mod+3 workspace number $tag3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 0
 
-# Navigate workspaces next / previous
-bindsym $mod+x workspace next
-bindsym $mod+z workspace prev
+# Navigate workspace numbers next / previous
+bindsym $mod+x workspace number next
+bindsym $mod+z workspace number prev
 
-# Move focused container to workspace
-bindsym $mod+Ctrl+1 move container to workspace $tag1
-bindsym $mod+Ctrl+2 move container to workspace $tag2
-bindsym $mod+Ctrl+3 move container to workspace $tag3
+# Move focused container to workspace number
+bindsym $mod+Ctrl+1 move container to workspace number $tag1
+bindsym $mod+Ctrl+2 move container to workspace number $tag2
+bindsym $mod+Ctrl+3 move container to workspace number $tag3
 bindsym $mod+Ctrl+4 move container to workspace number 4
 bindsym $mod+Ctrl+5 move container to workspace number 5
 bindsym $mod+Ctrl+6 move container to workspace number 6
@@ -126,17 +126,17 @@ bindsym $mod+Ctrl+8 move container to workspace number 8
 bindsym $mod+Ctrl+9 move container to workspace number 9
 bindsym $mod+Ctrl+0 move container to workspace number 0
 
-# Move to workspace with focused container
-bindsym $mod+Shift+1 move container to workspace $tag1; workspace $tag1
-bindsym $mod+Shift+2 move container to workspace $tag2; workspace $tag2
-bindsym $mod+Shift+3 move container to workspace $tag3; workspace $tag3
-bindsym $mod+Shift+4 move container to workspace number 4; workspace 4
-bindsym $mod+Shift+5 move container to workspace number 5; workspace 5
-bindsym $mod+Shift+6 move container to workspace number 6; workspace 6
-bindsym $mod+Shift+7 move container to workspace number 7; workspace 7
-bindsym $mod+Shift+8 move container to workspace number 8; workspace 8
-bindsym $mod+Shift+9 move container to workspace number 9; workspace 9
-bindsym $mod+Shift+0 move container to workspace number 0; workspace 0
+# Move to workspace number with focused container
+bindsym $mod+Shift+1 move container to workspace number $tag1; workspace number $tag1
+bindsym $mod+Shift+2 move container to workspace number $tag2; workspace number $tag2
+bindsym $mod+Shift+3 move container to workspace number $tag3; workspace number $tag3
+bindsym $mod+Shift+4 move container to workspace number 4; workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5; workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6; workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7; workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8; workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9; workspace number 9
+bindsym $mod+Shift+0 move container to workspace number 0; workspace number 0
 
 # Rename workspace with i3-input using numbers and text
 bindsym $mod+Shift+n exec i3-input -F 'rename workspace to "%s"' -P 'New name: '
@@ -158,6 +158,9 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+# lock the screen
+bindsym Mod4+l exec "i3lock"
+
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -189,6 +192,9 @@ bindsym $mod+r mode "resize"
 # finds out, if available)
 bar {
         status_command i3status
+	colors {
+		background #222222
+	}
 }
 
 exec --no-startup-id feh --randomize --bg-fill ~/WinPics/bgs/*
