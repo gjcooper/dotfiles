@@ -11,7 +11,7 @@ echo ''
 # Helper functions
 install_sw () {
   # Use apt-get to install any misses pieces of the puzzle
-  sudo -E apt-get -y install curl vim gitk zsh tmux python3 ipython ipython3 dos2unix python-pip python3-pip
+  sudo -E apt-get -y install curl vim gitk zsh tmux python3 ipython ipython3 dos2unix python-pip python3-pip i3 terminator
   #Install flake8 for python 2 and 3
   sudo -E pip install flake8 pyflakes
   if [ -f /usr/local/bin/flake8 ]
