@@ -111,8 +111,8 @@ bindsym $mod+9 workspace number 9
 bindsym $mod+0 workspace number 0
 
 # Navigate workspace numbers next / previous
-bindsym $mod+x workspace number next
-bindsym $mod+z workspace number prev
+bindsym $mod+x workspace next
+bindsym $mod+z workspace prev
 
 # Move focused container to workspace number
 bindsym $mod+Ctrl+1 move container to workspace number $tag1
