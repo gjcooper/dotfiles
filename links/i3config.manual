@@ -99,16 +99,16 @@ set $tag2 "2: ranger"
 set $tag3 "3: web"
 
 # Switch to workspace
-bindsym $mod+1 workspace number $tag1
-bindsym $mod+2 workspace number $tag2
-bindsym $mod+3 workspace number $tag3
-bindsym $mod+4 workspace number 4
-bindsym $mod+5 workspace number 5
-bindsym $mod+6 workspace number 6
-bindsym $mod+7 workspace number 7
-bindsym $mod+8 workspace number 8
-bindsym $mod+9 workspace number 9
-bindsym $mod+0 workspace number 0
+bindsym $mod+1 workspace $tag1
+bindsym $mod+2 workspace $tag2
+bindsym $mod+3 workspace $tag3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+bindsym $mod+0 workspace 0
 
 # Navigate workspace numbers next / previous
 bindsym $mod+x workspace next
