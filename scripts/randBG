@@ -1,3 +1,3 @@
 cd /home/gjc216/WinPics/bgs
-feh --bg-scale "$(ls | sort -R | head -1)"
+DISPLAY=:0.0 feh --bg-scale "$(ls | sort -R | head -1)"
 cd -
