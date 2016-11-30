@@ -198,5 +198,5 @@ bar {
 	}
 }
 
-exec --no-startup-id feh --randomize --bg-fill ~/WinPics/bgs/*
+exec --no-startup-id /usr/local/bin/randBG
 exec --no-startup-id conky -c conkyrc1
