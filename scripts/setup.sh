@@ -70,10 +70,6 @@ setup_pypirc () {
     read -e tpypi_username
 	user ' - What is your testpypi password?'
     read -e tpypi_passwd
-	#replace any ampersand in passwords with backspace for further sed calls
-	#pypirc file expects doubled %% instead of %
-	pypi_passwd=$(echo "$pypi_passwd" | sed -e 's/&/\\&/g' -e 's/%/%%/g')
-	tpypi_passwd=$(echo "$tpypi_passwd" | sed -e 's/&/\\&/g' -e 's/%/%%/g')
     sed -e "s/PYPI_USERNAME/$pypi_username/g" -e "s/PYPI_PASSWD/$pypi_passwd/g" -e "s/TEST_USERNAME/$tpypi_username/g" -e "s/TEST_PASSWD/$tpypi_passwd/g" links/pypirc.symlink.base > links/pypirc.symlink
     success 'pypirc'
   fi
