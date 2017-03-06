@@ -1,14 +1,15 @@
 #!/usr/bin/env bash
 #
-# bootstrap installs things.
+# Installs things and then passes onto python for links etc
 
+# Go to parent directory of script (usually /home/<user>/dotfiles) and save to var
 cd "$(dirname "$0")/.."
 DOTFILES_ROOT=$(pwd -P)
 
 set -e # Exit immediately if non-zero exit status from command is detected
 echo ''
 
-# Helper functions
+# Install std software needed for 
 install_sw () {
   # Use apt-get to install any misses pieces of the puzzle
   sudo -E apt-get -y install curl vim gitk zsh tmux python3 ipython ipython3 dos2unix python-pip python3-pip i3 terminator suckless-tools lightdm dbus-x11 xsel
@@ -23,25 +24,6 @@ install_sw () {
   then
 	  sudo mv /usr/local/bin/flake8{,.3}
   fi
-#  sudo -E pip3 install flake8
-}
-
-info () {
-  printf "\r  [ \033[00;34m..\033[0m ] $1\n"
-}
-
-user () {
-  printf "\r  [ \033[0;33m??\033[0m ] $1\n"
-}
-
-success () {
-  printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"
-}
-
-fail () {
-  printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $1\n"
-  echo ''
-  exit
 }
 
 setup_gitconfig () {
