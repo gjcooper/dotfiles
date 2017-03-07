@@ -2,6 +2,7 @@
 #
 import sys
 import os
+import subprocess
 
 
 class LinkManager():
@@ -39,10 +40,10 @@ class LinkManager():
     def lookUp(self, linkname):
         """look up the final location for a manual link file"""
         maplinks = {
-                'i3config.manual': os.path.join(self.userdir, '.config', 'i3', 'config'),
-                'conkyrc1.manual': os.path.join(self.userdir, 'conkyrc1'),
-                'terminator.manual': os.path.join(self.userdir, '.config', 'terminator', 'config')
-                }
+            'i3config.manual': os.path.join(self.userdir, '.config', 'i3', 'config'),
+            'flake8.manual': os.path.join(self.userdir, '.config', 'flake8'),
+            'conkyrc1.manual': os.path.join(self.userdir, 'conkyrc1'),
+            'terminator.manual': os.path.join(self.userdir, '.config', 'terminator', 'config')}
         return maplinks[linkname]
 
 
@@ -90,11 +91,32 @@ class SetupManager():
             self.base2link(self.__gitreplace__, 'gitconfig.symlink.base')
         elif section == 'pypi':
             self.base2link(self.__pypireplace__, 'pypirc.symlink.base')
+        else:
+            message('fail', 'Unknown base symlink configuration section')
+        message('success', section)
 
     def colorise(self):
         """Set up the solarised color scheme"""
+        solar_git = ['git', 'clone', 'https://github.com/seebi/dircolors-solarized.git',
+                     os.path.join(self.repodir, 'local', 'dircolors')]
+        try:
+            subprocess.check_call(solar_git)
+        except subprocess.CalledProcessError:
+            message('fail', 'Unable to clone dircolors repository')
+        scheme = self.getinput(' - What is your preferred colour scheme? (dark/light)')
+        if scheme not in {'dark', 'light'}:
+            message('fail', 'Unknown colour scheme selected')
+        src = os.path.join(self.repodir, 'local', 'dircolors', 'dircolors.ansi-{}'.format(scheme))
+        os.symlink(src, os.path.join(self.linkman.userdir, '.dircolors'))
+        message('success', 'dircolors')
 
-        
+    def install_links(self):
+        """For each link in LinkManager install it to the home directory"""
+        for src, dest in self.linkman.links.items():
+            os.symlink(src, dest)
+        for src, dest in self.linkman.manual.items():
+            os.symlink(src, dest)
+
 
 def message(messagetype, messagetext):
     """Print a message to screen for the user"""
