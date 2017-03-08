@@ -3,6 +3,7 @@
 import sys
 import os
 import subprocess
+import itertools
 
 userdir = os.path.expanduser('~')
 vundle_clone_call = ['git', 'clone', 'https://github.com/VundleVim/Vundle.vim.git', os.path.join(userdir, '.vim', 'bundle', 'Vundle.vim')]
@@ -18,16 +19,21 @@ class LinkManager():
         self.basedir = basedir
         self.links = {}
         self.base = {}
+        self.manual = {}
         self.__process__()
 
     def __linkname__(self, srclinkname):
         """get destination link name from source file"""
         linksplit = srclinkname.split('.')
-        return os.path.join(userdir, '.' + linksplit[-2])
+        try:
+            return os.path.join(userdir, '.' + linksplit[-2])
+        except IndexError:
+            message('fail', 'Unable to find 2nd last component of {}'.format(srclinkname + ":" + linksplit))
 
     def __process__(self):
         for rl in self.rawlinks:
             if rl.endswith('.symlink'):
+                print('_proc_')
                 self.links[rl] = self.__linkname__(rl)
             elif rl.endswith('.base'):
                 with open(self.fullpath(rl)) as linkbase:
@@ -65,12 +71,16 @@ class SetupManager():
         """Get basefile text, replace using dict in replacefunc and write to new link"""
         if basefile not in self.linkman.base:
             raise RuntimeError('Expected {}, but not found in links directory'.format(basefile))
-        modlinkname = basefile.rsplit('.')[0]
+        modlinkname = basefile.rsplit('.', 1)[0]
         basetext = self.linkman.base[basefile]
         for k, v in replacefunc().items():
             basetext = basetext.replace(k, v)
-        with open(self.linkman.fullpath(modlinkname), 'x') as modfile:
-            modfile.write(basetext)
+        try:
+            with open(self.linkman.fullpath(modlinkname), 'x') as modfile:
+                modfile.write(basetext)
+        except FileExistsError:
+            message('info', 'Generated symlink from base already exists, ignoring')
+        print('b2l {}'.format(modlinkname))
         self.linkman.links[modlinkname] = self.linkman.__linkname__(modlinkname)
 
     def __gitreplace__(self):
@@ -103,23 +113,38 @@ class SetupManager():
         """Set up the solarised color scheme"""
         solar_git = ['git', 'clone', 'https://github.com/seebi/dircolors-solarized.git',
                      os.path.join(self.repodir, 'local', 'dircolors')]
-        try:
-            subprocess.check_call(solar_git)
-        except subprocess.CalledProcessError:
-            message('fail', 'Unable to clone dircolors repository')
+        if subprocess.call(solar_git):
+            message('info', 'Unable to clone dircolors repository')
         scheme = self.getinput(' - What is your preferred colour scheme? (dark/light)')
         if scheme not in {'dark', 'light'}:
-            message('fail', 'Unknown colour scheme selected')
+            message('info', 'Unknown colour scheme selected')
+            self.colorise()
         src = os.path.join(self.repodir, 'local', 'dircolors', 'dircolors.ansi-{}'.format(scheme))
-        os.symlink(src, os.path.join(userdir, '.dircolors'))
+        try:
+            os.symlink(src, os.path.join(userdir, '.dircolors'))
+        except FileExistsError:
+            if self.getinput('Symlink for solarised already found: Regenerate (y/N)').upper() == 'Y':
+                os.remove(os.path.join(userdir, '.dircolors'))
+                os.symlink(src, os.path.join(userdir, '.dircolors'))
+            else:
+                return
         message('success', 'dircolors')
+
+    def regen_or_ignore(self, src, dest):
+        '''After a failed symlink call, either regenerate or continue'''
+        if self.getinput('{} already exists, Regenerate (y/N)'.format(dest)).upper() == 'Y':
+            os.remove(dest)
+            os.symlink(src, dest)
 
     def install_links(self):
         """For each link in LinkManager install it to the home directory"""
-        for src, dest in self.linkman.links.items():
-            os.symlink(src, dest)
-        for src, dest in self.linkman.manual.items():
-            os.symlink(src, dest)
+        for src, dest in itertools.chain(self.linkman.links.items(), self.linkman.manual.items()):
+            src = self.linkman.fullpath(src)
+            try:
+                os.symlink(src, dest)
+            except FileExistsError:
+                self.regen_or_ignore(src, dest)
+        message('success', 'symlinks')
 
     def setup(self, software):
         """Run the setup tasks for a certain software package"""
