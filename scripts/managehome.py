@@ -4,6 +4,11 @@ import sys
 import os
 import subprocess
 
+userdir = os.path.expanduser('~')
+vundle_clone_call = ['git', 'clone', 'https://github.com/VundleVim/Vundle.vim.git', os.path.join(userdir, '.vim', 'bundle', 'Vundle.vim')]
+vundle_plugin_call = ['vim', '+PluginInstall', '+qall']
+ohmyzsh_clone_call = ['git', 'clone', 'https://github.com/robbyrussell/oh-my-zsh.git', os.path.join(userdir, '.oh-my-zsh')]
+
 
 class LinkManager():
     """manages all links for the setup script"""
@@ -13,13 +18,12 @@ class LinkManager():
         self.basedir = basedir
         self.links = {}
         self.base = {}
-        self.userdir = os.path.expanduser('~')
         self.__process__()
 
     def __linkname__(self, srclinkname):
         """get destination link name from source file"""
         linksplit = srclinkname.split('.')
-        return os.path.join(self.userdir, '.' + linksplit[-2])
+        return os.path.join(userdir, '.' + linksplit[-2])
 
     def __process__(self):
         for rl in self.rawlinks:
@@ -40,10 +44,10 @@ class LinkManager():
     def lookUp(self, linkname):
         """look up the final location for a manual link file"""
         maplinks = {
-            'i3config.manual': os.path.join(self.userdir, '.config', 'i3', 'config'),
-            'flake8.manual': os.path.join(self.userdir, '.config', 'flake8'),
-            'conkyrc1.manual': os.path.join(self.userdir, 'conkyrc1'),
-            'terminator.manual': os.path.join(self.userdir, '.config', 'terminator', 'config')}
+            'i3config.manual': os.path.join(userdir, '.config', 'i3', 'config'),
+            'flake8.manual': os.path.join(userdir, '.config', 'flake8'),
+            'conkyrc1.manual': os.path.join(userdir, 'conkyrc1'),
+            'terminator.manual': os.path.join(userdir, '.config', 'terminator', 'config')}
         return maplinks[linkname]
 
 
@@ -107,7 +111,7 @@ class SetupManager():
         if scheme not in {'dark', 'light'}:
             message('fail', 'Unknown colour scheme selected')
         src = os.path.join(self.repodir, 'local', 'dircolors', 'dircolors.ansi-{}'.format(scheme))
-        os.symlink(src, os.path.join(self.linkman.userdir, '.dircolors'))
+        os.symlink(src, os.path.join(userdir, '.dircolors'))
         message('success', 'dircolors')
 
     def install_links(self):
@@ -116,6 +120,18 @@ class SetupManager():
             os.symlink(src, dest)
         for src, dest in self.linkman.manual.items():
             os.symlink(src, dest)
+
+    def setup(self, software):
+        """Run the setup tasks for a certain software package"""
+        if software == 'vim':
+            message('info', 'Installing vim bundles')
+            if subprocess.call(vundle_clone_call):
+                message('info', 'Vundle clone failed, trying to use anyway')
+            subprocess.call(vundle_plugin_call)
+        elif software == 'ohmyzsh':
+            message('info', 'Installing ohmyzsh')
+            if subprocess.call(ohmyzsh_clone_call):
+                message('info', 'Clone issue - perhaps oh-my-zsh directory already found in home dir')
 
 
 def message(messagetype, messagetext):
