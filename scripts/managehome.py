@@ -72,11 +72,11 @@ class SetupManager():
         if basefile not in self.linkman.base:
             raise RuntimeError('Expected {}, but not found in links directory'.format(basefile))
         modlinkname = basefile.rsplit('.', 1)[0]
-        basetext = self.linkman.base[basefile]
-        for k, v in replacefunc().items():
-            basetext = basetext.replace(k, v)
         try:
             with open(self.linkman.fullpath(modlinkname), 'x') as modfile:
+                basetext = self.linkman.base[basefile]
+                for k, v in replacefunc().items():
+                    basetext = basetext.replace(k, v)
                 modfile.write(basetext)
         except FileExistsError:
             message('info', 'Generated symlink from base already exists, ignoring')
@@ -144,6 +144,9 @@ class SetupManager():
                 os.symlink(src, dest)
             except FileExistsError:
                 self.regen_or_ignore(src, dest)
+            except FileNotFoundError:
+                os.makedirs(os.path.dirname(dest))
+                os.symlink(src, dest)
         message('success', 'symlinks')
 
     def setup(self, software):
