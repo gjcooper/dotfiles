@@ -17,3 +17,4 @@ Debian Testing install into VirtualBox (i3 version)
 * chsh gavin -s /bin/zsh
 * add contrib, non-free to sources.list
 * generate machine specific key, add to lastpass etc
+* link randBG script to /user/local/bin
