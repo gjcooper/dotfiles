@@ -76,6 +76,8 @@ set showmatch
 set hlsearch
 "Fix pasting via right-click and autoindenting
 set pastetoggle=<F2>
+"Set tabstop and shiftwidth to be 4
+set ts=4 sw=4
 "Set listchars for :set list
 set listchars=tab:»\ ,extends:›,precedes:‹,nbsp:·,trail:·,eol:↲
 if has("patch-7.4.710")
