@@ -26,14 +26,13 @@ class LinkManager():
         """get destination link name from source file"""
         linksplit = srclinkname.split('.')
         try:
-            return os.path.join(userdir, '.' + linksplit[-2])
+            return os.path.join(userdir, '.' + '.'.join(linksplit[0:-1]))
         except IndexError:
             message('fail', 'Unable to find 2nd last component of {}'.format(srclinkname + ":" + linksplit))
 
     def __process__(self):
         for rl in self.rawlinks:
             if rl.endswith('.symlink'):
-                print('_proc_')
                 self.links[rl] = self.__linkname__(rl)
             elif rl.endswith('.base'):
                 with open(self.fullpath(rl)) as linkbase:
@@ -80,7 +79,6 @@ class SetupManager():
                 modfile.write(basetext)
         except FileExistsError:
             message('info', 'Generated symlink from base already exists, ignoring')
-        print('b2l {}'.format(modlinkname))
         self.linkman.links[modlinkname] = self.linkman.__linkname__(modlinkname)
 
     def __gitreplace__(self):

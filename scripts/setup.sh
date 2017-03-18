@@ -14,12 +14,12 @@ install_sw () {
   # Use apt-get to install any misses pieces of the puzzle
   sudo -E apt-get -y install curl vim-nox gitk zsh tmux python3 ipython ipython3 dos2unix python-pip python3-pip i3 terminator suckless-tools lightdm dbus-x11 xsel dkms
   #Install flake8 for python 2 and 3
-  sudo -E pip install flake8 pyflakes
+  sudo -E -H pip install flake8 pyflakes
   if [ -f /usr/local/bin/flake8 ]
   then
 	  sudo mv /usr/local/bin/flake8{,.2}
   fi
-  sudo -E pip3 install flake8 pyflakes
+  sudo -E -H pip3 install flake8 pyflakes
   if [ -f /usr/local/bin/flake8 ]
   then
 	  sudo mv /usr/local/bin/flake8{,.3}
