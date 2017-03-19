@@ -31,4 +31,6 @@ venm () {
 	vena
 	pip install -U pip
 	pip install pip-tools
+	pip install wheel
+	pip install setuptools
 }
