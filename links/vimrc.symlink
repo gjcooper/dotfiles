@@ -35,6 +35,7 @@ Plugin 'will133/vim-dirdiff'
 Plugin 'raimon49/requirements.txt.vim'
 Plugin 'Glench/Vim-Jinja2-Syntax'
 
+Plugin 'thanthese/Tortoise-Typing'
 "Plugin 'hdima/python-syntax'
 
 call vundle#end()            " required
