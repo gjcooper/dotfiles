@@ -32,5 +32,5 @@ venm () {
 	pip install -U pip
 	pip install pip-tools
 	pip install wheel
-	pip install setuptools
+	pip install -U setuptools
 }
