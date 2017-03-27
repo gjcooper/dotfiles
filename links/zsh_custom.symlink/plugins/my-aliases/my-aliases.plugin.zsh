@@ -20,17 +20,74 @@ compdef _git gpall=git-push
 alias p3='python3'
 alias d2u='dos2unix'
 alias ip3='ipython3'
-alias vena='source venv/bin/activate'
 alias vend='deactivate'
 alias coverr='coverage run --omit="venv/*" -m unittest discover && coverage report -m'
 alias dvena='source ~/coding/venv/bin/activate'
 
 # Functions
+#vena () {
+#	if [
 venm () {
-	python3 -m venv venv
-	vena
+	read -r -d '' USAGE <<- EOM
+		venm [name] [location]
+		  [name] is what you want to call the virtualenv and defaults to venv
+		  [location] is where you want to store the virtualenv. Default to local directory.
+
+		  venm will create a new python3 virtualenv, update pip and setuptools,
+		  install pip-tools and wheel packages and activate the virtualenv ready to work.
+EOM
+	if [[ $# == 0 ]]; then
+		name="venv"
+		location=$(pwd)
+	elif [[ $# == 1 ]]
+	then
+		if [[ $1 == "-h" ]]; then
+			echo "$USAGE"
+			return
+		fi
+		name=$1
+		location=$(pwd)
+	elif [[ $# == 2 ]];	then
+		name=$1
+		location=$2
+	else
+		echo "$USAGE"
+		return
+	fi
+	python3 -m venv $location/$name
+	vena "$location/$name"
 	pip install -U pip
 	pip install pip-tools
 	pip install wheel
 	pip install -U setuptools
+}
+
+vena () {
+	read -r -d '' USAGE <<- EOM
+		vena [name]
+		  [name] is the virtualenv to activate, and default to venv
+
+		  vena will search the local directory, and a ~/.virtualenvs directory for the virtualenv.
+		  If your virtualenv is elsewhere pass a full path to the function.
+EOM
+	if [[ $# == 0 ]]; then
+		name="venv"
+	elif [[ $# == 1 ]];	then
+		if [[ $1 == "-h" ]]; then
+			echo "$USAGE"
+			return
+		fi
+		name=$1
+	else
+		echo "$USAGE"
+		return
+	fi
+	if [[ -d $name ]]; then
+		source $name/bin/activate
+	elif [[ -d "${HOME}/.virtualenvs/$name" ]]; then
+		source "${HOME}/.virtualenvs/$name/bin/activate"
+	else
+		echo "Was not able to find the virtualenv"
+		echo "$USAGE"
+	fi
 }
