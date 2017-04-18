@@ -31,7 +31,7 @@ venm () {
 	read -r -d '' USAGE <<- EOM
 		venm [name] [location]
 		  [name] is what you want to call the virtualenv and defaults to venv
-		  [location] is where you want to store the virtualenv. Default to local directory.
+		  [location] is where you want to store the virtualenv. Defaults to ~/.virtualenvs
 
 		  venm will create a new python3 virtualenv, update pip and setuptools,
 		  install pip-tools and wheel packages and activate the virtualenv ready to work.
@@ -46,7 +46,7 @@ EOM
 			return
 		fi
 		name=$1
-		location=$(pwd)
+		location="${HOME}/.virtualenvs"
 	elif [[ $# == 2 ]];	then
 		name=$1
 		location=$2

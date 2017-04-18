@@ -36,6 +36,8 @@ Plugin 'raimon49/requirements.txt.vim'
 Plugin 'Glench/Vim-Jinja2-Syntax'
 
 Plugin 'thanthese/Tortoise-Typing'
+
+Plugin 'ctrlpvim/ctrlp.vim'
 "Plugin 'hdima/python-syntax'
 
 call vundle#end()            " required
