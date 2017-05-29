@@ -39,6 +39,7 @@ Plugin 'thanthese/Tortoise-Typing'
 
 Plugin 'ctrlpvim/ctrlp.vim'
 "Plugin 'hdima/python-syntax'
+Plugin 'gjcooper/JA_Vimfiles'  " Inquisit syntax colouring and folding
 
 call vundle#end()            " required
 filetype plugin indent on    " required
