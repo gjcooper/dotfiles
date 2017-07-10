@@ -25,8 +25,27 @@ alias coverr='coverage run --omit="venv/*" -m unittest discover && coverage repo
 alias dvena='source ~/coding/venv/bin/activate'
 
 # Functions
-#vena () {
-#	if [
+venl () {
+	read -r -d '' USAGE <<- EOM
+		venl [name]
+		  [name] is the virtualenv to want to list the source packages for
+
+		  if called without a name venl will list all virtualenvs in the home ~/.virtualenvs folder.
+EOM
+	if [[ $# == 0 ]]; then
+		ls "${HOME}/.virtualenvs"
+		return
+	elif [[ $# == 1 ]]; then
+		name=$1
+	else
+		echo "$USAGE"
+		return
+	fi
+	vena $name
+	pip freeze
+	vend
+}
+
 venm () {
 	read -r -d '' USAGE <<- EOM
 		venm [name] [location]
