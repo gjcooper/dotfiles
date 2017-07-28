@@ -30,10 +30,10 @@ venl () {
 		venl [name]
 		  [name] is the virtualenv to want to list the source packages for
 
-		  if called without a name venl will list all virtualenvs in the home ~/.virtualenvs folder.
+		  if called without a name venl will list all virtualenvs in the $WORKON_HOME folder.
 EOM
 	if [[ $# == 0 ]]; then
-		ls "${HOME}/.virtualenvs"
+		lsvirtualenv -b
 		return
 	elif [[ $# == 1 ]]; then
 		name=$1
@@ -46,67 +46,5 @@ EOM
 	vend
 }
 
-venm () {
-	read -r -d '' USAGE <<- EOM
-		venm [name] [location]
-		  [name] is what you want to call the virtualenv and defaults to venv
-		  [location] is where you want to store the virtualenv. Defaults to ~/.virtualenvs
-
-		  venm will create a new python3 virtualenv, update pip and setuptools,
-		  install pip-tools and wheel packages and activate the virtualenv ready to work.
-EOM
-	if [[ $# == 0 ]]; then
-		name="venv"
-		location=$(pwd)
-	elif [[ $# == 1 ]]
-	then
-		if [[ $1 == "-h" ]]; then
-			echo "$USAGE"
-			return
-		fi
-		name=$1
-		location="${HOME}/.virtualenvs"
-	elif [[ $# == 2 ]];	then
-		name=$1
-		location=$2
-	else
-		echo "$USAGE"
-		return
-	fi
-	python3 -m venv $location/$name
-	vena "$location/$name"
-	pip install -U pip
-	pip install pip-tools
-	pip install wheel
-	pip install -U setuptools
-}
-
-vena () {
-	read -r -d '' USAGE <<- EOM
-		vena [name]
-		  [name] is the virtualenv to activate, and default to venv
-
-		  vena will search the local directory, and a ~/.virtualenvs directory for the virtualenv.
-		  If your virtualenv is elsewhere pass a full path to the function.
-EOM
-	if [[ $# == 0 ]]; then
-		name="venv"
-	elif [[ $# == 1 ]];	then
-		if [[ $1 == "-h" ]]; then
-			echo "$USAGE"
-			return
-		fi
-		name=$1
-	else
-		echo "$USAGE"
-		return
-	fi
-	if [[ -d $name ]]; then
-		source $name/bin/activate
-	elif [[ -d "${HOME}/.virtualenvs/$name" ]]; then
-		source "${HOME}/.virtualenvs/$name/bin/activate"
-	else
-		echo "Was not able to find the virtualenv"
-		echo "$USAGE"
-	fi
-}
+alias venm='mkvirtualenv'
+alias vena='workon'
