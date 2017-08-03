@@ -69,6 +69,7 @@ path+=(/usr/local/DicomBrowser-1.5.2/bin(N))
 path+=(/usr/local/camino/bin(N))
 path+=(/usr/local/bin/dtk(N))
 path+=(/usr/lib/ants(N))
+path+=(/home/gavin/software/mrtrix3/bin(N))
 
 export -TU PYTHONPATH pythonpath
 
