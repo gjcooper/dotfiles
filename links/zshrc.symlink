@@ -84,6 +84,7 @@ then
 fi
 
 export WORKON_HOME=$HOME/.virtualenvs
+export VIRTUALENV_PYTHON=/usr/bin/python3
 source $HOME/.local/bin/virtualenvwrapper.sh
 alias tmux="TERM=xterm-256color tmux"
 
