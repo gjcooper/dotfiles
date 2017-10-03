@@ -41,6 +41,8 @@ Plugin 'ctrlpvim/ctrlp.vim'
 "Plugin 'hdima/python-syntax'
 Plugin 'gjcooper/JA_Vimfiles'  " Inquisit syntax colouring and folding
 
+Plugin 'vim-scripts/diffchar.vim' " Character level diff views
+
 call vundle#end()            " required
 filetype plugin indent on    " required
 " Modelines=0 means vim does not check files it is opening for commands to
@@ -107,6 +109,9 @@ vnoremap <tab> %
 
 "Search for current word under cursor with F4
 map <F4> :execute " grep -srnw --binary-files=without-match --exclude=.swp --exclude-dir=.git . -e " . expand("<cword>") . " " <bar> cwindow<CR>
+
+nmap <F5> <Plug>ToggleDiffCharAllLines
+nmap <F6> <Plug>ToggleDiffCharCurrentLine
 
 "Customise vim-flake8 plugin to work with flake8.2/flake8.3 binaries
 autocmd FileType python map <buffer> <F7> :call Flake8Python2()<CR>
