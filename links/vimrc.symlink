@@ -43,6 +43,8 @@ Plugin 'gjcooper/JA_Vimfiles'  " Inquisit syntax colouring and folding
 
 Plugin 'vim-scripts/diffchar.vim' " Character level diff views
 
+Plugin 'jalvesaq/Nvim-R' " R code support within vim
+
 call vundle#end()            " required
 filetype plugin indent on    " required
 " Modelines=0 means vim does not check files it is opening for commands to
@@ -65,6 +67,7 @@ set cursorline
 set relativenumber
 
 "Change mapleader from default \ to ,
+"localleader is still the default \
 let mapleader = ","
 
 "Use normal regex characters in normal and visual/select mode search
