@@ -86,5 +86,13 @@ fi
 
 export WORKON_HOME=$HOME/.virtualenvs
 export VIRTUALENV_PYTHON=/usr/bin/python3
-source $HOME/.local/bin/virtualenvwrapper.sh
+DEFAULT_LOCATION=/usr/local/bin/virtualenvwrapper.sh
+PRIVATE_LOCATION=$HOME/.local/bin/virtualenvwrapper.sh
+if [ -f $DEFAULT_LOCATION ]; then
+	source $DEFAULT_LOCATION
+elif [ -f $PRIVATE_LOCATION ]; then
+	source $PRIVATE_LOCATION
+else
+	echo "WARNING: virtualenvwrapper.sh not found, please locate and update your zshrc file"
+fi
 alias tmux="TERM=xterm-256color tmux"
