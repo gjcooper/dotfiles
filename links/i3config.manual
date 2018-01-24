@@ -206,3 +206,4 @@ bar {
 
 exec --no-startup-id /usr/local/bin/randBG
 exec --no-startup-id conky -c conkyrc1
+exec --no-startup-id sleep 3 && xfce4-power-manager
