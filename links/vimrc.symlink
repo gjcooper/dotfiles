@@ -45,6 +45,8 @@ Plugin 'vim-scripts/diffchar.vim' " Character level diff views
 
 Plugin 'jalvesaq/Nvim-R' " R code support within vim
 
+Plugin 'gjcooper/vim-local'
+
 call vundle#end()            " required
 filetype plugin indent on    " required
 " Modelines=0 means vim does not check files it is opening for commands to
@@ -103,6 +105,7 @@ autocmd FileType python nnoremap <silent> <leader>r :!clear;python %<CR>
 autocmd FileType python\|enaml set expandtab sts=4 ts=4 sw=4 cc=80 fdm=indent foldnestmax=3
 " Narrower tabwidth for html/css
 autocmd FileType html\|css set expandtab sts=2 ts=2 sw=2
+autocmd FileType html set foldmethod=syntax
 "Auto word wrap for tex files
 autocmd FileType plaintex set tw=79
 "For use with nvim-r and R so that R starts in tmux pane
