@@ -157,6 +157,7 @@ bindsym $mod+Shift+n exec i3-input -F 'rename workspace to "%s"' -P 'New name: '
 
 # Open applications on specific workspaces
 assign [class="google-chrome"] $tag3
+assign [class="Chromium"] $tag3
 assign [class="Firefox"] $tag3
 
 # reload the configuration file
