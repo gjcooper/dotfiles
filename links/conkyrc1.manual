@@ -1,63 +1,63 @@
 conky.config = {
---Fonctionnement de conky 
-	total_run_times = 0,--Temps en secondes ; 0 = toujours actif
-	background = true,--Pour que conky tourne en arrière plan ; no = pour les tests
+--Conky operation
+	total_run_times = 0, --Time in seconds; 0 = always active
+	background = true, --So that conky runs in the background; no = for tests
 
---Réglages système
-	cpu_avg_samples = 1,--Nb d'échantillons pour calculer la moyenne d'utilisation CPU
-	net_avg_samples = 2,--Nb d'échantillons pour calculer la moyenne d'utilisation CPU
+--System settings
+	cpu_avg_samples = 1, --Number of samples to calculate the average CPU usage
+	net_avg_samples = 2, --Number of samples to calculate average CPU usage
 
---Mémoire
-	double_buffer = true,--Éviter le clignotement
-	no_buffers = true,--Soustraire les mémoires tampons de la mémoire utilisée
-	text_buffer_size = 1024,--Taille du cache pour le texte
+--Memory
+	double_buffer = true, --Avoid blinking
+	no_buffers = true, --Subtract buffers from used memory
+	text_buffer_size = 1024, --Cache size for text
 
---Affichage
-	out_to_console = false,--Affiche le texte sur la sortie standard
-	update_interval = 1,--Taux de rafraîchissement de la fenêtre (s)
+--Display
+	out_to_console = false, --display text on standard output
+	update_interval = 1, --Refresh rate of the window (s)
 
---Fenêtre conky
-	alignment = 'top_right',--Alignement
+--Conky window
+	alignment = 'top_right', --Alignment
 -----
-	minimum_width = 700, minimum_height = 10,--Taille minimum (px) ; largeur / hauteur
-	maximum_width = 700,--Largeur maximum (px)
+	minimum_width = 700, minimum_height = 10, --Minimum size (px); width height
+	maximum_width = 700, --Maximum width (px)
 -----
-	gap_x = 100,--Écart avec le bord gauche / droit
-	gap_y = 100,--Écart avec le bord haut / bas
+	gap_x = 100, --Gap with the left / right edge
+	gap_y = 100, --Gap with the up / down edge
 -----
-	draw_shades = false,--Afficher les ombres
-	draw_outline = false,--Afficher les contours de fenêtre
-	draw_borders = false,--Afficher des contours autour des blocs de texte
-	border_width = 1,--Largeur du contour
-	border_inner_margin = 1,--Largeur des marges
+	draw_shades = false, --show shadows
+	draw_outline = false, --Show window outlines
+	draw_borders = false, --Show outlines around blocks of text
+	border_width = 1, --Width of the contour
+	border_inner_margin = 1, --Width of margins
 -----
-	own_window = true,--Utiliser sa propre fenêtre
-	own_window_type = 'override',--Type de fenêtre ; normal / override / desktop
-	own_window_transparent = true,--Pseudo transparence
-	own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+	own_window = true, --use own window
+	own_window_type = 'override', --Window type; normal / override / desktop
+	own_window_transparent = true, --Pseudo transparency
+	own_window_hints = 'undecorated, below, sticky, skip_taskbar, skip_pager',
 
---Mise en forme
-	use_xft = true,--Utiliser Xft (polices lissées etc)
-	xftalpha = 1,--Utiliser Xft
-	override_utf8_locale = true,--Force l'UTF8
-	uppercase = false,--Tout le texte en majuscule
-	use_spacer = 'left',--Ajoute des espaces après certains objets (qu'avec des polices fixes)
+--Fitness
+	use_xft = true, --Use Xft (smoothed fonts etc)
+	xftalpha = 1, --Use Xft
+	override_utf8_locale = true, --Force UTF8
+	uppercase = false, --all text in uppercase
+	use_spacer = 'left', --Adds spaces after certain objects (only with fixed fonts)
 -----
-	font = 'saxMono:size=9',--Police par défaut
+	font = 'saxMono:size = 9', --Default font
 -----
-	default_bar_width = 50, default_bar_height = 3,--Barre par défaut (longeur hauteur)
-	stippled_borders = 3,--Taille des pointillés
+	default_bar_width = 50, default_bar_height = 3, --Default bar (height length)
+	stippled_borders = 3, --Dotted line
 
---Couleurs
-	default_color = '#FFFFFF',--Couleur par défaut
-	default_shade_color = '#333333',--Couleur des ombres
-	default_outline_color = 'black',--Couleur des contours
+--Colors
+	default_color = '#FFFFFF', --Default color
+	default_shade_color = '#333333', --Color of the shadows
+	default_outline_color = 'black', --outline color
 -----
-	color1 = '#424c52',--Gris
-	color2 = '#9A9A9A',--Gris clair
+	color1 = '#424c52', --Gray
+	color2 = '#9A9A9A', --Light gray
 -----
-	short_units = true,--Unités courtes
-	pad_percents = 2,--Unité à 2 décimales
+	short_units = true, --Short units
+	pad_percents = 2, --Unit with 2 decimal places
 
 --LUA : Clock
 --lua_load $HOME/conky/Script/clock.lua
