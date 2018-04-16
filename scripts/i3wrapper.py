@@ -34,6 +34,8 @@ def get_monitor_setting():
             return fp.readlines()[0].strip()
     except OSError:
         return 'unknown'
+    except IOError:
+        return 'unknown'
 
 def print_line(message):
     """ Non-buffered printing to stdout. """

@@ -42,6 +42,12 @@ bindsym $mod+Shift+q kill
 # installed.
 bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
+#Volume controls
+# Pulse Audio controls
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
+
 # change focus
 bindsym $mod+h focus left
 bindsym $mod+j focus down
@@ -172,6 +178,7 @@ bindsym Mod4+l exec "i3lock"
 bindsym Mod4+s exec "systemctl suspend"
 # Switch monitors
 bindsym Mod4+p exec --no-startup-id /usr/local/bin/monitor
+bindsym Mod4+o move workspace to output right
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
