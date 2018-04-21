@@ -74,6 +74,8 @@ path+=(/home/gjc216/.local/bin/mrtrix3/bin(N))
 
 export -TU PYTHONPATH pythonpath
 
+export SUBJECTSDIR=/home/gjc216/FreesurferAnalysis
+
 pythonpath+=(/home/gavin/Analysis/uonpype(N))
 
 export EDITOR=/usr/bin/vim
