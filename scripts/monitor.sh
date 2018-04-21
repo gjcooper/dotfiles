@@ -1,5 +1,6 @@
 #!/bin/bash
 EXTERNAL_OUTPUT="HDMI-1"
+USBC_OUTPUT="DP-1"
 INTERNAL_OUTPUT="eDP-1"
 
 # if we don't have a file, start at zero
@@ -16,7 +17,7 @@ if [ $monitor_mode = "RIGHT" ]; then
         xrandr --output $INTERNAL_OUTPUT --off --output $EXTERNAL_OUTPUT --auto
 elif [ $monitor_mode = "EXTERNAL" ]; then
         monitor_mode="INTERNAL"
-        xrandr --output $INTERNAL_OUTPUT --auto --output $EXTERNAL_OUTPUT --off
+        xrandr --output $INTERNAL_OUTPUT --auto --output $EXTERNAL_OUTPUT --off --output $USBC_OUTPUT --off
 elif [ $monitor_mode = "INTERNAL" ]; then
         monitor_mode="CLONES"
         xrandr --output $INTERNAL_OUTPUT --auto --output $EXTERNAL_OUTPUT --auto --same-as $INTERNAL_OUTPUT
