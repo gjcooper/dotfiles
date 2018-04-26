@@ -74,7 +74,7 @@ path+=(/home/gjc216/.local/bin/mrtrix3/bin(N))
 
 export -TU PYTHONPATH pythonpath
 
-export SUBJECTSDIR=/home/gjc216/FreesurferAnalysis
+export SUBJECTS_DIR=/home/gjc216/ownCloud/GAPsMRI_Data/MRI/participants/
 
 pythonpath+=(/home/gavin/Analysis/uonpype(N))
 

@@ -60,4 +60,5 @@ bind c new-window -c "#{pane_current_path}" -n ''
 #set-option -g status-left  '#[fg=cyan][#S#[fg=black,bold]#P#[default]#[fg=cyan]]#[default]'
 #set-option -g status-right "#[fg=red]#(battery Discharging)#[fg=blue]#(battery Charging) #[fg=$TMUX_SHELL_COLOR]$sHost#[default]#[fg=cyan] %d %b %R"
 
+run-shell ~/.local/lib/tmux-resurrect/resurrect.tmux
 bind r source-file ~/.tmux.conf
