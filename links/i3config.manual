@@ -179,7 +179,8 @@ bindsym Mod4+s exec "systemctl suspend"
 # Switch monitors
 bindsym Mod4+p exec --no-startup-id /usr/local/bin/monitor
 bindsym Mod4+o move workspace to output right
-
+# Toggle touchpad input
+bindsym Mod4+t exec "touchpad-toggle"
 # resize window (you can also use the mouse for that)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
