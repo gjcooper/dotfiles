@@ -71,6 +71,6 @@ if __name__ == '__main__':
         j = json.loads(line)
         # insert information into the start of the json, but could be anywhere
         # CHANGE THIS LINE TO INSERT SOMETHING ELSE
-        j.insert(0, {'full_text' : '[{}]'.format(get_monitor_setting()), 'name' : 'mon'})
+        j.insert(0, {'full_text' : '💻 [{}]'.format(get_monitor_setting()), 'name' : 'mon'})
         # and echo back new encoded json
         print_line(prefix+json.dumps(j))

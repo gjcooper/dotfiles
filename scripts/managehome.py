@@ -50,6 +50,7 @@ class LinkManager():
         """look up the final location for a manual link file"""
         maplinks = {
             'i3config.manual': os.path.join(userdir, '.config', 'i3', 'config'),
+            'i3statconfig.manual': os.path.join(userdir, '.config', 'i3status', 'config'),
             'flake8.manual': os.path.join(userdir, '.config', 'flake8'),
             'conkyrc1.manual': os.path.join(userdir, 'conkyrc1'),
             'terminator.manual': os.path.join(userdir, '.config', 'terminator', 'config')}
