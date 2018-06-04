@@ -177,7 +177,7 @@ bindsym Mod4+l exec "i3lock"
 #Suspend/Sleep
 bindsym Mod4+s exec "systemctl suspend"
 # Switch monitors
-bindsym Mod4+p exec --no-startup-id /usr/local/bin/monitor
+bindsym Mod4+p exec echo "M" >> /tmp/monitor_pipe
 bindsym Mod4+o move workspace to output right
 # Toggle touchpad input
 bindsym Mod4+t exec "touchpad-toggle"
@@ -219,3 +219,4 @@ bar {
 exec --no-startup-id /usr/local/bin/randBG
 exec --no-startup-id conky -c conkyrc1
 exec --no-startup-id sleep 3 && xfce4-power-manager
+exec --no-startup-id /usr/local/bin/monitor
