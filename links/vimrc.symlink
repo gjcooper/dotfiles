@@ -1,5 +1,5 @@
 "remove vi compatibility
-" set nocompatible " Not needed when vimrc exists
+set nocompatible " Not needed when vimrc exists
 
 " Required Vundle setup
 filetype off
@@ -41,7 +41,7 @@ Plugin 'ctrlpvim/ctrlp.vim'
 "Plugin 'hdima/python-syntax'
 Plugin 'gjcooper/JA_Vimfiles'  " Inquisit syntax colouring and folding
 
-Plugin 'vim-scripts/diffchar.vim' " Character level diff views
+Plugin 'rickhowe/diffchar.vim' " Character level diff views
 
 Plugin 'jalvesaq/Nvim-R' " R code support within vim
 
