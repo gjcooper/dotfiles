@@ -47,6 +47,8 @@ Plugin 'jalvesaq/Nvim-R' " R code support within vim
 
 Plugin 'gjcooper/vim-local'
 
+Plugin 'vim-latex/vim-latex'
+
 call vundle#end()            " required
 filetype plugin indent on    " required
 " Modelines=0 means vim does not check files it is opening for commands to
@@ -152,5 +154,6 @@ function! s:DiffWithSaved()
 endfunction
 com! DiffSaved call s:DiffWithSaved()
 
+let g:tex_comment_nospell=1
 " Enable python code highliting for enaml files
 "au BufNewFile,BufRead *.enaml set filetype=enaml
