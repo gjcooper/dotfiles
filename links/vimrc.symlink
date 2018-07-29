@@ -30,6 +30,7 @@ Plugin 'garbas/vim-snipmate'
 Plugin 'honza/vim-snippets'
 
 Plugin 'altercation/vim-colors-solarized'
+Plugin 'morhetz/gruvbox'
 Plugin 'will133/vim-dirdiff'
 
 Plugin 'raimon49/requirements.txt.vim'
@@ -41,6 +42,8 @@ Plugin 'ctrlpvim/ctrlp.vim'
 "Plugin 'hdima/python-syntax'
 Plugin 'gjcooper/JA_Vimfiles'  " Inquisit syntax colouring and folding
 
+Plugin 'maverickg/stan.vim'
+
 Plugin 'rickhowe/diffchar.vim' " Character level diff views
 
 Plugin 'jalvesaq/Nvim-R' " R code support within vim
@@ -48,6 +51,8 @@ Plugin 'jalvesaq/Nvim-R' " R code support within vim
 Plugin 'gjcooper/vim-local'
 
 Plugin 'vim-latex/vim-latex'
+
+Plugin 'tpope/vim-fugitive'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -115,6 +120,7 @@ let R_in_buffer = 0
 let R_applescript = 0
 let R_source = '/home/gjc216/.vim/bundle/Nvim-R/R/tmux_split.vim'
 let R_tmux_title = 'automatic'
+let R_assign= 2
 "tab key matches bracket pairs
 nnoremap <tab> %
 vnoremap <tab> %

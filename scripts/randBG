@@ -31,8 +31,12 @@ def looping(sleeptime):
         if getonemon():
             subprocess.call(['feh', '--bg-fill', random.choice(bgpics)])
         else:
-            subprocess.call(['feh', '--bg-fill', random.choice(bgpics),
-                             '--bg-fill', random.choice(promptpics)])
+            if random.choice([0, 1]):
+                subprocess.call(['feh', '--bg-fill', random.choice(bgpics),
+                                 '--bg-fill', random.choice(promptpics)])
+            else:
+                subprocess.call(['feh', '--bg-fill', random.choice(promptpics),
+                                 '--bg-fill', random.choice(bgpics)])
         time.sleep(60 * sleeptime)
 
 
