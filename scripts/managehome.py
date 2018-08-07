@@ -6,9 +6,14 @@ import subprocess
 import itertools
 
 userdir = os.path.expanduser('~')
+scriptdir = os.path.join(userdir, '.local', 'bin')
 vundle_clone_call = ['git', 'clone', 'https://github.com/VundleVim/Vundle.vim.git', os.path.join(userdir, '.vim', 'bundle', 'Vundle.vim')]
 vundle_plugin_call = ['vim', '+PluginInstall', '+qall']
 ohmyzsh_clone_call = ['git', 'clone', 'https://github.com/robbyrussell/oh-my-zsh.git', os.path.join(userdir, '.oh-my-zsh')]
+software_list = ['curl', 'vim-nox', 'gitk', 'zsh', 'tmux', 'python3', 'ipython',
+                 'ipython3', 'dos2unix', 'python-pip', 'python3-pip', 'i3',
+                 'terminator', 'suckless-tools', 'lightdm', 'dbus-x11', 'xsel',
+                 'dkms', 'feh', 'conky', 'compton', 'python3-venv', 'python3-tk']
 
 
 class LinkManager():
@@ -135,6 +140,22 @@ class SetupManager():
             os.remove(dest)
             os.symlink(src, dest)
 
+    def install_software(self):
+        """Install software provided in our list"""
+        for sw in software_list:
+            subprocess.call(['sudo', 'apt', '-y', 'install', sw])
+        message('info', 'All software installed')
+
+    def install_scripts(self):
+        """Install scripts used for managing PC"""
+        if not os.exists(os.path.join(userdir, '.local', 'bin')):
+            os.makedirs(os.path.join(userdir, '.local', 'bin'))
+        for script in os.listdir(os.path.join(userdir, 'dotfiles', 'scripts')):
+            ans = self.getinput('Install {}? (Y/n)'.format(script))
+            if ans.lower() in {'', 'y', 'yes'}:
+                os.symlink(os.path.join(userdir, 'dotfiles', 'scripts'),
+                           os.path.join(userdir, '.local', 'bin', os.path.splitext(script)[0]))
+
     def install_links(self):
         """For each link in LinkManager install it to the home directory"""
         for src, dest in itertools.chain(self.linkman.links.items(), self.linkman.manual.items()):
@@ -182,6 +203,8 @@ def runall(repodir):
     sm.config('git')
     sm.config('pypi')
     sm.colorise()
+    sm.install_software()
+    sm.install_scripts()
     sm.install_links()
     sm.setup('vim')
     sm.setup('ohmyzsh')

@@ -71,6 +71,7 @@ path+=(/usr/local/bin/dtk(N))
 path+=(/usr/lib/ants(N))
 path+=(/home/gavin/software/mrtrix3/bin(N))
 path+=(/home/gjc216/.local/bin/mrtrix3/bin(N))
+path+=(/home/gjc216/.local/bin(N))
 
 export -TU PYTHONPATH pythonpath
 
