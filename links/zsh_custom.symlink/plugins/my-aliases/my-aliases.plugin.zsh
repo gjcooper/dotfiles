@@ -22,7 +22,6 @@ alias d2u='dos2unix'
 alias ip3='ipython3'
 alias vend='deactivate'
 alias coverr='coverage run --omit="venv/*" -m unittest discover && coverage report -m'
-alias dvena='source ~/coding/venv/bin/activate'
 
 # Functions
 venl () {
