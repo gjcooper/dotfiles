@@ -116,11 +116,9 @@ autocmd FileType html set foldmethod=syntax
 "Auto word wrap for tex files
 autocmd FileType plaintex set tw=79
 "For use with nvim-r and R so that R starts in tmux pane
-let R_in_buffer = 0
-let R_applescript = 0
-let R_source = '/home/gjc216/.vim/bundle/Nvim-R/R/tmux_split.vim'
 let R_tmux_title = 'automatic'
 let R_assign= 2
+let R_pdfviewer = 'xpdf'
 "tab key matches bracket pairs
 nnoremap <tab> %
 vnoremap <tab> %
