@@ -148,12 +148,12 @@ class SetupManager():
 
     def install_scripts(self):
         """Install scripts used for managing PC"""
-        if not os.exists(os.path.join(userdir, '.local', 'bin')):
-            os.makedirs(os.path.join(userdir, '.local', 'bin'))
+        if not os.exists(scriptdir):
+            os.makedirs(scriptdir)
         for script in os.listdir(os.path.join(userdir, 'dotfiles', 'scripts')):
             ans = self.getinput('Install {}? (Y/n)'.format(script))
             if ans.lower() in {'', 'y', 'yes'}:
-                os.symlink(os.path.join(userdir, 'dotfiles', 'scripts'),
+                os.symlink(os.path.join(userdir, 'dotfiles', 'scripts', script),
                            os.path.join(userdir, '.local', 'bin', os.path.splitext(script)[0]))
 
     def install_links(self):
