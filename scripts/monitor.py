@@ -8,19 +8,21 @@ import logging
 logger = logging.getLogger(__name__)
 
 HDMI_OUTPUT = "HDMI-1"
-USBC_OUTPUT = "DP-1"
+USBC_OUTPUT = "DP-2"
 INTERNAL_OUTPUT = "eDP-1"
+outputs = [INTERNAL_OUTPUT, HDMI_OUTPUT, USBC_OUTPUT]
 monitor_mode = 'INTERNAL'
-mode_list = ['INTERNAL', 'CLONED', 'LEFT', 'RIGHT', 'EXTERNAL']
-xcmd_start = 'xrandr --output {} '.format(INTERNAL_OUTPUT)
-two_monitor_modes = {
-    'INTERNAL': ('CLONED', '--auto --output {} --auto --same-as {}'),
-    'CLONED': ('LEFT', '--auto --output {} --auto --left-of {}'),
-    'LEFT': ('RIGHT', '--auto --output {} --auto --right-of {}'),
-    'RIGHT': ('EXTERNAL', '--off --output {} --auto'),
-    'EXTERNAL': ('INTERNAL', '--auto --output $EXTERNAL_OUTPUT --off'),
-}
-one_monitor_modes = ('INTERNAL', '--auto --output {} --off --output {} --off')
+xcmd_start = 'xrandr '
+monitor_modes = {
+    1: {'INTERNAL': ('INTERNAL', '--output {0} --auto --output {1} --off --output {2} --off')},
+    2: {'INTERNAL': ('RIGHT', '--output {0} --auto --output {1} --auto --right-of {0}'),
+        'RIGHT': ('LEFT', '--output {0} --auto --output {1} --auto --left-of {0}'),
+        'LEFT': ('CLONED', '--output {0} --auto --output {1} --auto --same-as {0}'),
+        'CLONED': ('EXTERNAL', '--output {0} --off --output {1} --auto'),
+        'EXTERNAL': ('INTERNAL', '--output {0} --auto --output {1} --off'), },
+    3: {'INTERNAL': ('LAB', '--output {0} --auto --output {1} --auto --right-of {0} --output {2} --auto --right-of {1}'),
+        'LAB': ('DUAL', '--output {0} --off --output {1} --auto --output {2} --auto --right-of {1}'),
+        'DUAL': ('INTERNAL', '--output {0} --auto --output {1} --off --output {2} --off'), }}
 pipe_path = "/tmp/monitor_pipe"
 mode_path = '/tmp/monitor_mode.dat'
 
@@ -39,17 +41,16 @@ def get_pipe(pipe_name):
         os.unlink(pipe_name)
 
 
-def external():
-    """Get the current external output"""
+def connected():
+    """Get the current connected output(s)"""
     xout = subprocess.check_output(['xrandr'], universal_newlines=True)
-    for line in xout.splitlines():
-        if line.startswith(HDMI_OUTPUT):
-            if line.split()[1] == 'connected':
-                return HDMI_OUTPUT
-        if line.startswith(USBC_OUTPUT):
-            if line.split()[1] == 'connected':
-                return USBC_OUTPUT
-    return ''
+    connected = []
+    for output in outputs:
+        for line in xout.splitlines():
+            if line.startswith(output):
+                if line.split()[1] == 'connected':
+                    connected.append(output)
+    return connected
 
 
 def switch(mode, cmd):
@@ -62,23 +63,23 @@ def switch(mode, cmd):
 
 def watch(mode):
     """watch the named pipe for any message"""
-    # Reset on reboot/reload of settings
-    mode, cmdend = one_monitor_modes
-    switch(mode, cmdend.format(HDMI_OUTPUT, USBC_OUTPUT))
+    # Reset on reboot/reload of settings to internal only
+    mode, cmdend = monitor_modes[1]['INTERNAL']
+    switch(mode, cmdend.format(*outputs))
     with get_pipe(pipe_path) as pipe:
         while True:
             message = pipe.read()
             if message:
                 logger.debug('[{},{}]', mode, message)
-                ext = external()
-                if not ext:
-                    mode, cmdend = one_monitor_modes
-                    switch(mode, cmdend.format(HDMI_OUTPUT, USBC_OUTPUT))
-                else:
-                    mode, cmdend = two_monitor_modes[mode]
-                    switch(mode, cmdend.format(ext, INTERNAL_OUTPUT))
+                conn_outputs = connected()
+                assert len(conn_outputs) <= 3
+                try:
+                    mode, cmdend = monitor_modes[len(conn_outputs)][mode]
+                except KeyError:
+                    mode, cmdend = monitor_modes[1]['INTERNAL']
+                switch(mode, cmdend.format(*outputs))
             else:
-                time.sleep(0.5)
+                time.sleep(0.25)
 
 
 if __name__ == '__main__':
