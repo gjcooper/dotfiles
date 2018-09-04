@@ -4,6 +4,7 @@ import sys
 import os
 import subprocess
 import itertools
+import argparse
 
 userdir = os.path.expanduser('~')
 scriptdir = os.path.join(userdir, '.local', 'bin')
@@ -14,6 +15,14 @@ software_list = ['curl', 'vim-nox', 'gitk', 'zsh', 'tmux', 'python3', 'ipython',
                  'ipython3', 'dos2unix', 'python-pip', 'python3-pip', 'i3',
                  'terminator', 'suckless-tools', 'lightdm', 'dbus-x11', 'xsel',
                  'dkms', 'feh', 'conky', 'compton', 'python3-venv', 'python3-tk']
+
+
+def directory_path(string):
+    """takes a string and returns it if it refers to a directory,
+    otherwise raise and argparse.ArgumentError"""
+    if os.path.isdir(string):
+        return string
+    raise argparse.ArgumentTypeError('{} does not point to a directory'.format(string))
 
 
 class LinkManager():
@@ -148,7 +157,7 @@ class SetupManager():
 
     def install_scripts(self):
         """Install scripts used for managing PC"""
-        if not os.exists(scriptdir):
+        if not os.path.exists(scriptdir):
             os.makedirs(scriptdir)
         for script in os.listdir(os.path.join(userdir, 'dotfiles', 'scripts')):
             ans = self.getinput('Install {}? (Y/n)'.format(script))
@@ -197,18 +206,31 @@ def message(messagetype, messagetext):
         message('fail', 'Unknown message type sent internally')
 
 
-def runall(repodir):
+def runall(management_directory=None, config=['git', 'pypi'], colorise=True,
+           software=True, scripts=True, links=True, setup=['vim', 'ohmyzsh']):
     """run all setup scripts for a new home directory"""
-    sm = SetupManager(repodir)
-    sm.config('git')
-    sm.config('pypi')
-    sm.colorise()
-    sm.install_software()
-    sm.install_scripts()
-    sm.install_links()
-    sm.setup('vim')
-    sm.setup('ohmyzsh')
+    sm = SetupManager(management_directory)
+    (sm.config(app) for app in config)
+    run_args = [colorise, software, scripts, links]
+    run_cmds = [sm.colorise, sm.install_software, sm.install_scripts, sm.install_links]
+    for runit, func in zip(run_args, run_cmds):
+        if runit:
+            func()
+    (sm.setup(app) for app in setup)
 
 
 if __name__ == '__main__':
-    runall(sys.argv[1])
+    parser = argparse.ArgumentParser(description='Set up a system')
+    parser.add_argument('management_directory', type=directory_path, help='A path to the dotfiles base directory')
+    parser.add_argument('--config', choices=['git', 'pypi'], default=[], nargs='+', help='Run the config process for the chosen program(s), getting manual input to add to the linked file')
+    parser.add_argument('-c', '--colorise', action='store_true', help='Set up the solarised colourscheme')
+    parser.add_argument('--software', action='store_true', help='Install all software in the list')
+    parser.add_argument('--scripts', action='store_true', help='Install all user scripts in the ~/.local/bin directory (by linking)')
+    parser.add_argument('--links', action='store_true', help='Install all user configuration files in the appropriate directory (by linking)')
+    parser.add_argument('--setup', choices=['vim', 'ohmyzsh'], default=[], nargs='+', help='Installing and setting up vim bundles and/or ohmyzsh')
+
+    args = parser.parse_args()
+    if any(val for key, val in vars(args).items() if key != 'management_directory'):
+        runall(**vars(args))
+    else:
+        runall(args.management_directory)
