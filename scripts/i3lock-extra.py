@@ -18,7 +18,10 @@ def	place_locks():
                           xrandr_out.splitlines()
                           if ' connected' in x]
     for mon in connected_monitors:
-        dim = re.search('\d+x\d+[+]\d+[+]\d+', mon).group(0)
+        try:
+            dim = re.search('\d+x\d+[+]\d+[+]\d+', mon).group(0)
+        except AttributeError:
+            continue
         dim = dim.split('+', 1)
         res_x, res_y = [int(res) for res in dim[0].split('x')]
         off_x, off_y = [int(off) for off in dim[1].split('+')]
