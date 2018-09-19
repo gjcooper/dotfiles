@@ -74,8 +74,8 @@ class LinkManager():
 class SetupManager():
     '''Manages home directory setup for the script'''
     def __init__(self, repodir):
-        self.repodir = repodir
-        self.linkman = LinkManager(os.path.join(repodir, 'links'))
+        self.repodir = os.path.abspath(repodir)
+        self.linkman = LinkManager(os.path.join(self.repodir, 'links'))
 
     def getinput(self, text):
         message('user', text)
