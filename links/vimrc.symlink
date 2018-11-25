@@ -160,5 +160,6 @@ endfunction
 com! DiffSaved call s:DiffWithSaved()
 
 let g:tex_comment_nospell=1
+let g:tex_flavor = "latex"
 " Enable python code highliting for enaml files
 "au BufNewFile,BufRead *.enaml set filetype=enaml
