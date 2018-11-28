@@ -54,6 +54,8 @@ Plugin 'vim-latex/vim-latex'
 
 Plugin 'tpope/vim-fugitive'
 
+Plugin 'w0rp/ale'
+
 call vundle#end()            " required
 filetype plugin indent on    " required
 " Modelines=0 means vim does not check files it is opening for commands to
@@ -163,3 +165,8 @@ let g:tex_comment_nospell=1
 let g:tex_flavor = "latex"
 " Enable python code highliting for enaml files
 "au BufNewFile,BufRead *.enaml set filetype=enaml
+"
+" Ale specific settings
+map <leader>k <Plug>(ale_previous_wrap)
+map <leader>j <Plug>(ale_next_wrap)
+map <leader>a <Plug>(ale_toggle)
