@@ -116,7 +116,7 @@ autocmd FileType python\|enaml set expandtab sts=4 ts=4 sw=4 cc=80 fdm=indent fo
 autocmd FileType html\|css set expandtab sts=2 ts=2 sw=2
 autocmd FileType html set foldmethod=syntax
 "Auto word wrap for tex files
-autocmd FileType plaintex set tw=79
+autocmd FileType tex set linebreak
 "For use with nvim-r and R so that R starts in tmux pane
 let R_tmux_title = 'automatic'
 let R_assign= 2
