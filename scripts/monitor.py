@@ -78,6 +78,7 @@ def watch(mode):
                 except KeyError:
                     mode, cmdend = monitor_modes[1]['INTERNAL']
                 switch(mode, cmdend.format(*outputs))
+                time.sleep(0.5)
             else:
                 time.sleep(0.25)
 
