@@ -71,10 +71,10 @@ conky.config = {
 };
 
 conky.text = [[
-${color1}${font Bitstream charter:size=15}${goto 560}${voffset 10}${time %a}${font}${font Bitstream charter:size=30}${alignr}${voffset -30}${time %d.%m}${font}${voffset -6}
+${color1}${font Bitstream charter:size=15}${goto 560}${voffset 30}${time %a}${font}${font Bitstream charter:size=30}${alignr}${voffset -30}${time %d.%m}${font}${voffset -6}
 ${hr}${voffset -24}
 ${font Bitstream charter:size=10}Sys:${cpu cpu0}%${goto 100}Mem:${memperc}%${goto 210}Up:${uptime_short}${voffset 6}
 ${goto 560}Root ${goto 605}${voffset 3}${fs_bar /}${alignr}${voffset -3}${fs_free /}
 ${goto 560}Home ${goto 605}${voffset 3}${fs_bar /home}${alignr}${voffset -3}${fs_free /home}
-${execp grep -E ^\/dev /etc/mtab | cut -d " " -f2 | sed '1,2d ; s&^.*/&&g' | while read line ; do name=$(echo $line | cut -c '1-5' | sed 's/.*/\L&/g ; s/^./\U&/g') ; echo '${goto 560}'$name'${goto 605}${voffset 3}${fs_bar /media/'$line'}${alignr}${voffset -3}${fs_free /media/'$line'}' ; done}${font}${voffset 10}
+${font}${voffset 10}
 ]];

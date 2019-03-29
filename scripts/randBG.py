@@ -4,6 +4,9 @@ import sys
 import subprocess
 import random
 import time
+import logging
+logging.basicConfig(filename='randBG.log',level=logging.DEBUG)
+logging.info('Script start')
 picdir = os.path.join(os.path.expanduser('~'), 'Pictures')
 bgdir = os.path.join(picdir, 'bgs')
 promptdir = os.path.join(picdir, 'prompts')
@@ -42,4 +45,5 @@ def looping(sleeptime):
 
 if __name__ == '__main__':
     time_delay = 5 if (len(sys.argv) < 2) else float(sys.argv[1])
+    logging.info('Ready to loop')
     looping(time_delay)

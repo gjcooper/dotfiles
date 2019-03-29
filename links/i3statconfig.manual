@@ -46,12 +46,12 @@ disk / {
 
 ethernet _first_ {
         # if you use %speed, i3status requires root privileges
-        format_up = "🖧 : (%speed)"
+        format_up = "🖧 : (%speed) (%ip)"
         format_down = "🖧 "
 }
 
 wireless _first_ {
-    format_up = "📶 : %quality (%essid)"
+    format_up = "📶 : %quality (%essid) (%ip)"
     format_down = "📶"
 }
 
