@@ -175,7 +175,7 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 # lock the screen
 bindsym Mod4+l exec "i3lock-extra"
 #Suspend/Sleep
-bindsym Mod4+s exec "systemctl suspend"
+bindsym Mod4+s exec "i3lock-extra && systemctl suspend"
 # Switch monitors
 bindsym Mod4+p exec echo "M" >> /tmp/monitor_pipe
 bindsym Mod4+o move workspace to output right

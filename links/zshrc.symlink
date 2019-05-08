@@ -99,3 +99,9 @@ else
 	echo "WARNING: virtualenvwrapper.sh not found, please locate and update your zshrc file"
 fi
 alias tmux="TERM=xterm-256color tmux"
+
+export PATH="/home/gjc216/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
+pyenv virtualenvwrapper_lazy
