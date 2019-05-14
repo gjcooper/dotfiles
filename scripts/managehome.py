@@ -44,6 +44,15 @@ class LinkManager():
         except IndexError:
             message('fail', 'Unable to find 2nd last component of {}'.format(srclinkname + ":" + linksplit))
 
+    def __configname__(self, srclinkname):
+        """get destination link name from source file, new type of config file that
+        is placed in a .config folder within the users home dir"""
+        linksplit = srclinkname.split('.')
+        try:
+            return os.path.join(userdir, '.config', '.'.join(linksplit[0:-1]))
+        except IndexError:
+            message('fail', 'Unable to find 2nd last component of {}'.format(srclinkname + ":" + linksplit))
+
     def __process__(self):
         for rl in self.rawlinks:
             if rl.endswith('.symlink'):
@@ -53,6 +62,8 @@ class LinkManager():
                     self.base[rl] = linkbase.read()
             elif rl.endswith('.manual'):
                 self.manual[rl] = self.lookUp(rl)
+            elif rl.endswith('.config'):
+                self.links[rl] = self.__configname__(rl)
             else:
                 raise RuntimeError('Unknown link type for setup script')
 
@@ -66,6 +77,7 @@ class LinkManager():
             'i3config.manual': os.path.join(userdir, '.config', 'i3', 'config'),
             'i3statconfig.manual': os.path.join(userdir, '.config', 'i3status', 'config'),
             'flake8.manual': os.path.join(userdir, '.config', 'flake8'),
+            'praw.manual': os.path.join(userdir, '.config', 'praw.ini'),
             'conkyrc1.manual': os.path.join(userdir, 'conkyrc1'),
             'terminator.manual': os.path.join(userdir, '.config', 'terminator', 'config')}
         return maplinks[linkname]
