@@ -98,6 +98,9 @@ bindsym $mod+a focus parent
 # Make my CMStorm keyboard backloighting work
 bindsym Scroll_Lock exec xset led 3
 
+# Open system settings
+bindsym $mod+Shift+s exec env XDG_CURRENT_DESKTOP=GNOME gnome-control-center
+
 # focus the child container
 #bindsym $mod+d focus child
 
