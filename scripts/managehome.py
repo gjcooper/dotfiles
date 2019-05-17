@@ -210,13 +210,15 @@ def runall(management_directory=None, config=['git', 'pypi'], colorise=True,
            software=True, scripts=True, links=True, setup=['vim', 'ohmyzsh']):
     """run all setup scripts for a new home directory"""
     sm = SetupManager(management_directory)
-    (sm.config(app) for app in config)
+    for app in config:
+        sm.config(app)
     run_args = [colorise, software, scripts, links]
     run_cmds = [sm.colorise, sm.install_software, sm.install_scripts, sm.install_links]
     for runit, func in zip(run_args, run_cmds):
         if runit:
             func()
-    (sm.setup(app) for app in setup)
+    for app in setup:
+        sm.setup(app)
 
 
 if __name__ == '__main__':
