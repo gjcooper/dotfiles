@@ -20,7 +20,7 @@ battery 0 {
     low_threshold = "15"
 	hide_seconds = "true"
 	status_chr = "⚡"
-    status_bat = "🔋"
+    status_bat = "[BAT]"
     format = "%status%percentage %remaining"
 }
 
@@ -28,22 +28,22 @@ volume master {
     device = "default"
     mixer_idx = "0"
     mixer = "Master"
-    format = "🎵%volume"
+    format = "[VOL] %volume"
 }
 
 disk / {
-    format = "💽%free"
+    format = "[DISK FREE] %free"
 }
 
 ethernet _first_ {
         # if you use %speed, i3status requires root privileges
-        format_up = "🌐(%speed) (%ip)"
-        format_down = "🌐"
+        format_up = "[ETH] (%speed) (%ip)"
+        format_down = "[ETH DOWN]"
 }
 
 wireless _first_ {
-    format_up = "📶%quality (%essid) (%ip)"
-    format_down = "📶"
+    format_up = "[WIFI] %quality (%essid) (%ip)"
+    format_down = "[WIFI DOWN]"
 }
 
 run_watch DHCP {
@@ -52,7 +52,7 @@ run_watch DHCP {
 }
 
 cpu_usage {
-	format = "📈%usage"
+	format = "[CPU] %usage"
 }
 
 time {
