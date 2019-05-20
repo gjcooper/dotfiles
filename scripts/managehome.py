@@ -11,9 +11,9 @@ scriptdir = os.path.join(userdir, '.local', 'bin')
 vundle_clone_call = ['git', 'clone', 'https://github.com/VundleVim/Vundle.vim.git', os.path.join(userdir, '.vim', 'bundle', 'Vundle.vim')]
 vundle_plugin_call = ['vim', '+PluginInstall', '+qall']
 ohmyzsh_clone_call = ['git', 'clone', 'https://github.com/robbyrussell/oh-my-zsh.git', os.path.join(userdir, '.oh-my-zsh')]
-software_list = ['curl', 'vim-nox', 'gitk', 'zsh', 'tmux', 'python3', 'ipython',
-                 'ipython3', 'dos2unix', 'python-pip', 'python3-pip', 'i3',
-                 'terminator', 'suckless-tools', 'lightdm', 'dbus-x11', 'xsel',
+software_list = ['curl', 'vim-gtk', 'gitk', 'zsh', 'tmux', 'dos2unix',
+                 'python-pip', 'python3-pip', 'i3',
+                 'terminator', 'suckless-tools', 'dbus-x11', 'xsel',
                  'dkms', 'feh', 'conky', 'compton', 'python3-venv', 'python3-tk']
 
 
