@@ -21,6 +21,8 @@ alias p3='python3'
 alias d2u='dos2unix'
 alias ip3='ipython3'
 alias vend='deactivate'
+alias venm='mkvirtualenv'
+alias vena='workon'
 alias coverr='coverage run --omit="venv/*" -m unittest discover && coverage report -m'
 
 # Functions
@@ -45,5 +47,20 @@ EOM
 	vend
 }
 
-alias venm='mkvirtualenv'
-alias vena='workon'
+linx () {
+	read -r -d '' USAGE <<- EOM
+		linx [dir]
+		  [dir] is the directory for which to list all links
+
+		  if called without a dir linx will list all links in the current directory.
+EOM
+	if [[ $# == 0 ]]; then
+		dir='.'
+	elif [[ $# == 1 ]]; then
+		dir=$1
+	else
+		echo "$USAGE"
+		return
+	fi
+	find $dir -maxdepth 1 -type l -exec ls --color -d -l {} \;
+}
