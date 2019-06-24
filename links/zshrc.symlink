@@ -48,10 +48,9 @@ source $ZSH/oh-my-zsh.sh
 # Customize to your needs...
 
 #Source the fsl setup script if we can find it...
-if [[ -e /etc/fsl/fsl.sh ]]
-then
-    source /etc/fsl/fsl.sh;
-fi
+FSLDIR=/home/gjc216/.local/fsl
+. ${FSLDIR}/etc/fslconf/fsl.sh
+export FSLDIR
 
 #Source the freesurfer setup script if we can find it
 if [[ -e /usr/local/freesurfer/SetUpFreeSurfer.sh ]]
@@ -71,6 +70,7 @@ path+=(/usr/local/bin/dtk(N))
 path+=(/usr/lib/ants(N))
 path+=(/home/gavin/software/mrtrix3/bin(N))
 path+=(/home/gjc216/.local/bin/mrtrix3/bin(N))
+path+=(/home/gjc216/.local/fsl/bin(N))
 path+=(/home/gjc216/.local/bin(N))
 
 export -TU PYTHONPATH pythonpath
