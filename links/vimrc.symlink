@@ -54,6 +54,8 @@ Plugin 'vim-latex/vim-latex'
 
 Plugin 'tpope/vim-fugitive'
 
+Plugin 'pangloss/vim-javascript'
+
 Plugin 'w0rp/ale'
 
 call vundle#end()            " required
