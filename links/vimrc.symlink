@@ -123,6 +123,9 @@ autocmd FileType tex set linebreak
 let R_tmux_title = 'automatic'
 let R_assign= 2
 let R_pdfviewer = 'xpdf'
+"Fold method and file settings for R
+autocmd FileType r set fdm=syntax expandtab sts=2 ts=2 sw=2
+let r_syntax_folding = 1
 "tab key matches bracket pairs
 nnoremap <tab> %
 vnoremap <tab> %
@@ -159,5 +162,5 @@ map <leader>k <Plug>(ale_previous_wrap)
 map <leader>j <Plug>(ale_next_wrap)
 map <leader>a <Plug>(ale_toggle)
 
-let g:ale_linters = {'javascript': ['eslint'], 'css': ['eslint']}
-let g:ale_fixers = {'javascript': ['prettier'], 'css': ['prettier']}
+let g:ale_linters = {'javascript': ['eslint'], 'css': ['eslint'], 'r': ['lintr']}
+let g:ale_fixers = {'javascript': ['prettier'], 'css': ['prettier'], 'r': ['styler']}
