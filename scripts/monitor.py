@@ -5,6 +5,7 @@ import time
 from contextlib import contextmanager
 import logging
 
+logging.basicConfig(filename='monitor.log', level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 HDMI_OUTPUT = "HDMI-1"
@@ -25,6 +26,7 @@ monitor_modes = {
         'DUAL': ('INTERNAL', '--output {0} --auto --output {1} --off --output {2} --off'), }}
 pipe_path = "/tmp/monitor_pipe"
 mode_path = '/tmp/monitor_mode.dat'
+wait_time = 2
 
 
 @contextmanager
@@ -64,21 +66,33 @@ def switch(mode, cmd):
 def watch(mode):
     """watch the named pipe for any message"""
     # Reset on reboot/reload of settings to internal only
+    monitor_state = 'IDLE'  # (or LOOK)
     mode, cmdend = monitor_modes[1]['INTERNAL']
     switch(mode, cmdend.format(*outputs))
+    start_time = 0
     with get_pipe(pipe_path) as pipe:
         while True:
+            if monitor_state == 'LOOK':
+                if time.time() - start_time > wait_time:
+                    switch(mode, cmdend.format(*outputs))
+                    monitor_state = 'IDLE'
+
             message = pipe.read()
             if message:
-                logger.debug('[{},{}]', mode, message)
+                logger.debug('[%s,%s]', mode, message)
                 conn_outputs = connected()
                 assert len(conn_outputs) <= 3
                 try:
-                    mode, cmdend = monitor_modes[len(conn_outputs)][mode]
+                    if 'S' in message:
+                        mode, cmdend = monitor_modes[1]['INTERNAL']
+                    else:
+                        mode, cmdend = monitor_modes[len(conn_outputs)][mode]
                 except KeyError:
                     mode, cmdend = monitor_modes[1]['INTERNAL']
-                switch(mode, cmdend.format(*outputs))
-                time.sleep(0.5)
+                monitor_state = 'LOOK'
+                subprocess.call(['notify-send', mode, '-t', '500'])
+                start_time = time.time()
+                time.sleep(0.1)
             else:
                 time.sleep(0.25)
 

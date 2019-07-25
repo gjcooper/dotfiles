@@ -181,6 +181,7 @@ bindsym Mod4+l exec "i3lock-extra"
 bindsym Mod4+s exec "i3lock-extra && systemctl suspend"
 # Switch monitors
 bindsym Mod4+p exec echo "M" >> /tmp/monitor_pipe
+bindsym Mod4+Shift+p exec echo "S" >> /tmp/monitor_pipe
 bindsym Mod4+o move workspace to output right
 # Toggle touchpad input
 bindsym Mod4+t exec "touchpad-toggle"
