@@ -113,6 +113,8 @@ set $tag1 "1: terminator"
 set $tag2 "2: ranger"
 set $tag3 "3: web"
 
+bindsym $mod+n exec i3-input -F 'rename workspace to "%s"' -P 'New name for this workspace: '
+
 # Switch to workspace
 bindsym $mod+1 workspace number 1
 bindsym $mod+2 workspace number 2

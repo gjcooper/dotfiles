@@ -1,5 +1,9 @@
 cat(".Rprofile: Setting Canberra repository\n")
-r = getOption("repos")
-r["CRAN"] = "https://cran.csiro.au"
+r <- getOption("repos")
+r["CRAN"] <- "https://cran.csiro.au"
 options(repos = r)
 rm(r)
+
+if (interactive()) {
+  .Last <- function() try(savehistory("~/.Rhistory"))
+}

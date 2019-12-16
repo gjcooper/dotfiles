@@ -100,6 +100,8 @@ else
 fi
 alias tmux="TERM=xterm-256color tmux"
 
+export R_HISTFILE=~/.Rhistory
+
 export PATH="/home/gjc216/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"

@@ -58,6 +58,8 @@ Plugin 'pangloss/vim-javascript'
 
 Plugin 'w0rp/ale'
 
+Plugin 'vimwiki/vimwiki'
+
 call vundle#end()            " required
 filetype plugin indent on    " required
 " Modelines=0 means vim does not check files it is opening for commands to
