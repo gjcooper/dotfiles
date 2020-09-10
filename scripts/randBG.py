@@ -32,14 +32,14 @@ def looping(sleeptime):
     while True:
         bgpics, promptpics = getpics(bgdir, promptdir)
         if getonemon():
-            subprocess.call(['feh', '--bg-fill', random.choice(bgpics)])
+            subprocess.call(['feh', '--auto-rotate', '--bg-fill', random.choice(bgpics)])
         else:
             if random.choice([0, 1]):
-                subprocess.call(['feh', '--bg-fill', random.choice(bgpics),
-                                 '--bg-fill', random.choice(promptpics)])
+                subprocess.call(['feh', '--auto-rotate', '--bg-fill', random.choice(bgpics),
+                                 '--auto-rotate', '--bg-fill', random.choice(promptpics)])
             else:
-                subprocess.call(['feh', '--bg-fill', random.choice(promptpics),
-                                 '--bg-fill', random.choice(bgpics)])
+                subprocess.call(['feh', '--auto-rotate', '--bg-fill', random.choice(promptpics),
+                                 '--auto-rotate', '--bg-fill', random.choice(bgpics)])
         time.sleep(60 * sleeptime)
 
 
