@@ -1,5 +1,8 @@
 [global_config]
+  borderless = True
   enabled_plugins = LaunchpadCodeURLHandler, APTURLHandler, LaunchpadBugURLHandler
+  handle_size = 0
+  inactive_color_offset = 1.0
   title_transmit_bg_color = "#001fc8"
 [keybindings]
 [layouts]
@@ -16,12 +19,12 @@
   [[default]]
     background_color = "#002b36"
     background_darkness = 0.9
-    background_type = transparent
     cursor_color = "#839496"
     custom_command = TERM=xterm-256color zsh
     font = Noto Sans Mono 10
     foreground_color = "#839496"
     palette = "#073642:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#002b36:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
+    scrollbar_position = hidden
     show_titlebar = False
     use_custom_command = True
     use_system_font = False
