@@ -7,3 +7,51 @@ rm(r)
 if (interactive()) {
   .Last <- function() try(savehistory("~/.Rhistory"))
 }
+
+quotes_file <- "~/quotes.txt"
+con <- file(quotes_file, open = "r")
+poslines <- readLines(con)
+close(con)
+positive_word <- sample(poslines, 1)
+
+#' Detects R terminal (stolen shamelessly from
+#' https://github.com/csgillespie/rprofile/blob/master/R/set_terminal.R
+#'
+#' Return \code{TRUE} is terminal. But \code{FALSE} if the RStudio console.
+#' The RStudio console doesn't require as much customisation as a standard
+#' console since it is already pretty. But it does place limits on the prompt
+#' options (single line only).
+#' @export
+is_terminal <- function() {
+  Sys.getenv("RSTUDIO") != 1 ||
+    (Sys.getenv("RSTUDIO") == "1" &&
+       nzchar(Sys.getenv("RSTUDIO_TERM")))
+}
+
+if (is_terminal()) {
+  chdr <- "\x01\x1b[38;2;"
+  cftr <- "m\x02"
+  paste_col <- function(col) {
+    paste0(chdr, paste0(col, collapse = ";"), cftr)
+  }
+  split_word <- unlist(strsplit(positive_word, split = ""))
+  len_word <- length(split_word)
+  pal <- sample(grDevices::hcl.pals(type = "sequential"), 1)
+  cols <- t(grDevices::col2rgb(grDevices::hcl.colors(len_word*3, palette = pal)))
+  allcols <- apply(cols[len_word+1:len_word, ], 1, paste_col)
+  pmt <- paste0(
+           paste0(
+             paste0(
+               allcols,
+               split_word,
+               "\x01\x1b[0m\x02"),
+             collapse = ""),
+           " > ")
+  options(prompt = pmt)
+  rm(list=ls())
+} else {
+  options(prompt = paste0(
+    positive_word,
+    " > "
+  ))
+}
