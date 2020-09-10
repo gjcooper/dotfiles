@@ -45,39 +45,10 @@ plugins=(git vi-mode command-not-found my-aliases history-substring-search)
 
 source $ZSH/oh-my-zsh.sh
 
-# Customize to your needs...
-
-#Source the fsl setup script if we can find it...
-FSLDIR=/home/gjc216/.local/fsl
-. ${FSLDIR}/etc/fslconf/fsl.sh
-export FSLDIR
-
-#Source the freesurfer setup script if we can find it
-if [[ -e /usr/local/freesurfer/SetUpFreeSurfer.sh ]]
-then
-    FREESURFER_HOME=/usr/local/freesurfer
-    source $FREESURFER_HOME/SetUpFreeSurfer.sh
-fi
-
 #Setup path, make sure it has unique values. Only add if path is resolved...
 typeset -U path
 
-path+=(/usr/lib/mrtrix/bin(N))
-path+=(/usr/local/Slicer-4.2.2-1-linux-amd64/bin(N))
-path+=(/usr/local/DicomBrowser-1.5.2/bin(N))
-path+=(/usr/local/camino/bin(N))
-path+=(/usr/local/bin/dtk(N))
-path+=(/usr/lib/ants(N))
-path+=(/home/gavin/software/mrtrix3/bin(N))
-path+=(/home/gjc216/.local/bin/mrtrix3/bin(N))
-path+=(/home/gjc216/.local/fsl/bin(N))
 path+=(/home/gjc216/.local/bin(N))
-
-export -TU PYTHONPATH pythonpath
-
-export SUBJECTS_DIR=/home/gjc216/ownCloud/GAPsMRI_Data/MRI/participants/
-
-pythonpath+=(/home/gavin/Analysis/uonpype(N))
 
 export EDITOR=/usr/bin/vim
 export VISUAL=/usr/bin/vim
@@ -111,3 +82,4 @@ pyenv virtualenvwrapper_lazy
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+export HOST=$(hostname)
