@@ -41,6 +41,7 @@ Plugin 'thanthese/Tortoise-Typing'
 Plugin 'ctrlpvim/ctrlp.vim'
 "Plugin 'hdima/python-syntax'
 Plugin 'gjcooper/JA_Vimfiles'  " Inquisit syntax colouring and folding
+Plugin 'gjcooper/mysnippets'  " My vim snippets
 
 Plugin 'maverickg/stan.vim'
 
@@ -59,6 +60,10 @@ Plugin 'pangloss/vim-javascript'
 Plugin 'w0rp/ale'
 
 Plugin 'vimwiki/vimwiki'
+
+Plugin 'chrisbra/unicode.vim'
+
+Plugin 'heavenshell/vim-jsdoc'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -117,8 +122,7 @@ autocmd FileType python nnoremap <silent> <leader>r :!clear;python %<CR>
 " Create visual column for "screen width"
 autocmd FileType python\|enaml set expandtab sts=4 ts=4 sw=4 cc=80 fdm=indent foldnestmax=3
 " Narrower tabwidth for html/css
-autocmd FileType html\|css set expandtab sts=2 ts=2 sw=2
-autocmd FileType html set foldmethod=syntax
+autocmd FileType html\|css\|javascript set expandtab sts=2 ts=2 sw=2 cc=80 foldmethod=syntax
 "Auto word wrap for tex files
 autocmd FileType tex set linebreak
 "For use with nvim-r and R so that R starts in tmux pane
@@ -126,7 +130,8 @@ let R_tmux_title = 'automatic'
 let R_assign= 2
 let R_pdfviewer = 'xpdf'
 "Fold method and file settings for R
-autocmd FileType r set fdm=syntax expandtab sts=2 ts=2 sw=2
+autocmd FileType r set fdm=syntax expandtab sts=2 ts=2 sw=2 cc=80 
+autocmd FileType r inoremap <buffer> >> <Esc>:normal! a %>%<CR>a
 let r_syntax_folding = 1
 "tab key matches bracket pairs
 nnoremap <tab> %
@@ -165,4 +170,4 @@ map <leader>j <Plug>(ale_next_wrap)
 map <leader>a <Plug>(ale_toggle)
 
 let g:ale_linters = {'javascript': ['eslint'], 'css': ['eslint'], 'r': ['lintr']}
-let g:ale_fixers = {'javascript': ['prettier'], 'css': ['prettier'], 'r': ['styler']}
+let g:ale_fixers = {'javascript': ['prettier'], 'css': ['prettier'], 'html': ['prettier'], 'r': ['styler']}
