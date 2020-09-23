@@ -143,12 +143,9 @@ map <F4> :execute " grep -srnw --binary-files=without-match --exclude=.swp --exc
 nmap <F5> <Plug>ToggleDiffCharAllLines
 nmap <F6> <Plug>ToggleDiffCharCurrentLine
 
-" Load the solarised colour scheme
+" Load the gruvbox colour scheme
 set background=dark
-set t_Co=16
-let g:solarized_termcolors=16
-let g:solarized_underline=1
-colorscheme solarized
+colorscheme gruvbox
 
 function! s:DiffWithSaved()
   let filetype=&ft
