@@ -31,7 +31,11 @@ Plugin 'honza/vim-snippets'
 
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'morhetz/gruvbox'
+Plugin 'NLKNguyen/papercolor-theme'
 Plugin 'will133/vim-dirdiff'
+
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 
 Plugin 'raimon49/requirements.txt.vim'
 Plugin 'Glench/Vim-Jinja2-Syntax'
@@ -143,9 +147,12 @@ map <F4> :execute " grep -srnw --binary-files=without-match --exclude=.swp --exc
 nmap <F5> <Plug>ToggleDiffCharAllLines
 nmap <F6> <Plug>ToggleDiffCharCurrentLine
 
-" Load the gruvbox colour scheme
+" Load the PaperColor colour scheme
+set t_Co=256   " This is may or may not needed.
 set background=dark
-colorscheme gruvbox
+colorscheme PaperColor
+let g:airline_theme='papercolor'
+let g:airline_powerline_fonts = 1
 
 function! s:DiffWithSaved()
   let filetype=&ft
