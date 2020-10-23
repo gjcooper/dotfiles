@@ -34,9 +34,6 @@ Plugin 'morhetz/gruvbox'
 Plugin 'NLKNguyen/papercolor-theme'
 Plugin 'will133/vim-dirdiff'
 
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-
 Plugin 'raimon49/requirements.txt.vim'
 Plugin 'Glench/Vim-Jinja2-Syntax'
 
@@ -128,7 +125,7 @@ autocmd FileType python\|enaml set expandtab sts=4 ts=4 sw=4 cc=80 fdm=indent fo
 " Narrower tabwidth for html/css
 autocmd FileType html\|css\|javascript set expandtab sts=2 ts=2 sw=2 cc=80 foldmethod=syntax
 "Auto word wrap for tex files
-autocmd FileType tex set linebreak
+autocmd FileType tex set linebreak tw=80 cc=80
 "For use with nvim-r and R so that R starts in tmux pane
 let R_tmux_title = 'automatic'
 let R_assign= 2
@@ -151,8 +148,6 @@ nmap <F6> <Plug>ToggleDiffCharCurrentLine
 set t_Co=256   " This is may or may not needed.
 set background=dark
 colorscheme PaperColor
-let g:airline_theme='papercolor'
-let g:airline_powerline_fonts = 1
 
 function! s:DiffWithSaved()
   let filetype=&ft
