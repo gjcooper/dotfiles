@@ -14,6 +14,7 @@ ohmyzsh_clone_call = ['git', 'clone', 'https://github.com/robbyrussell/oh-my-zsh
 apt_software_list = ['curl', 'vim-gtk', 'gitk', 'zsh', 'tmux', 'dos2unix', 'i3',
                  'terminator', 'suckless-tools', 'dbus-x11', 'xsel',
                  'dkms', 'feh', 'conky', 'compton']
+other_software = ['curl https://pyenv.run | bash']
 
 
 def directory_path(string):
@@ -141,7 +142,7 @@ class SetupManager():
 
     def install_software(self):
         """Install software provided in our list"""
-	subprocess.run(['sudo', 'apt', 'install', '-y', *apt_software_list])
+        subprocess.run(['sudo', 'apt', 'install', '-y', *apt_software_list])
         for sw in other_software:
             subprocess.run(sw, shell=True)
         message('info', 'All software installed')
