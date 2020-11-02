@@ -15,10 +15,8 @@ set-window-option -g automatic-rename off # auto name
 set-window-option -g allow-rename off # disable renames altogether
 
 # Less obnoxious colors
-set -g pane-active-border-fg cyan
-set -g pane-active-border-bg default
-set -g pane-border-fg black
-set -g pane-border-bg default
+set -g pane-active-border-style fg=cyan,bg=default
+set -g pane-border-style fg=black,bg=default
 
 # Create an environment that zsh can make sense of
 # set-environment -g tmuxTERM $TERM
