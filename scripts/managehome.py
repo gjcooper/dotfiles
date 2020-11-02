@@ -11,10 +11,9 @@ scriptdir = os.path.join(userdir, '.local', 'bin')
 vundle_clone_call = ['git', 'clone', 'https://github.com/VundleVim/Vundle.vim.git', os.path.join(userdir, '.vim', 'bundle', 'Vundle.vim')]
 vundle_plugin_call = ['vim', '+PluginInstall', '+qall']
 ohmyzsh_clone_call = ['git', 'clone', 'https://github.com/robbyrussell/oh-my-zsh.git', os.path.join(userdir, '.oh-my-zsh')]
-software_list = ['curl', 'vim-gtk', 'gitk', 'zsh', 'tmux', 'dos2unix',
-                 'python-pip', 'python3-pip', 'i3',
+apt_software_list = ['curl', 'vim-gtk', 'gitk', 'zsh', 'tmux', 'dos2unix', 'i3',
                  'terminator', 'suckless-tools', 'dbus-x11', 'xsel',
-                 'dkms', 'feh', 'conky', 'compton', 'python3-venv', 'python3-tk']
+                 'dkms', 'feh', 'conky', 'compton']
 
 
 def directory_path(string):
@@ -134,27 +133,6 @@ class SetupManager():
             message('fail', 'Unknown base symlink configuration section')
         message('success', section)
 
-    def colorise(self):
-        """Set up the solarised color scheme"""
-        solar_git = ['git', 'clone', 'https://github.com/seebi/dircolors-solarized.git',
-                     os.path.join(self.repodir, 'local', 'dircolors')]
-        if subprocess.call(solar_git):
-            message('info', 'Unable to clone dircolors repository')
-        scheme = self.getinput(' - What is your preferred colour scheme? (dark/light)')
-        if scheme not in {'dark', 'light'}:
-            message('info', 'Unknown colour scheme selected')
-            self.colorise()
-        src = os.path.join(self.repodir, 'local', 'dircolors', 'dircolors.ansi-{}'.format(scheme))
-        try:
-            os.symlink(src, os.path.join(userdir, '.dircolors'))
-        except FileExistsError:
-            if self.getinput('Symlink for solarised already found: Regenerate (y/N)').upper() == 'Y':
-                os.remove(os.path.join(userdir, '.dircolors'))
-                os.symlink(src, os.path.join(userdir, '.dircolors'))
-            else:
-                return
-        message('success', 'dircolors')
-
     def regen_or_ignore(self, src, dest):
         '''After a failed symlink call, either regenerate or continue'''
         if self.getinput('{} already exists, Regenerate (y/N)'.format(dest)).upper() == 'Y':
@@ -163,8 +141,9 @@ class SetupManager():
 
     def install_software(self):
         """Install software provided in our list"""
-        for sw in software_list:
-            subprocess.call(['sudo', 'apt', '-y', 'install', sw])
+	subprocess.run(['sudo', 'apt', 'install', '-y', *apt_software_list])
+        for sw in other_software:
+            subprocess.run(sw, shell=True)
         message('info', 'All software installed')
 
     def install_scripts(self):
@@ -218,14 +197,14 @@ def message(messagetype, messagetext):
         message('fail', 'Unknown message type sent internally')
 
 
-def runall(management_directory=None, config=['git', 'pypi'], colorise=True,
+def runall(management_directory=None, config=['git', 'pypi'],
            software=True, scripts=True, links=True, setup=['vim', 'ohmyzsh']):
     """run all setup scripts for a new home directory"""
     sm = SetupManager(management_directory)
     for app in config:
         sm.config(app)
-    run_args = [colorise, software, scripts, links]
-    run_cmds = [sm.colorise, sm.install_software, sm.install_scripts, sm.install_links]
+    run_args = [software, scripts, links]
+    run_cmds = [sm.install_software, sm.install_scripts, sm.install_links]
     for runit, func in zip(run_args, run_cmds):
         if runit:
             func()
@@ -237,7 +216,6 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Set up a system')
     parser.add_argument('management_directory', type=directory_path, help='A path to the dotfiles base directory')
     parser.add_argument('--config', choices=['git', 'pypi'], default=[], nargs='+', help='Run the config process for the chosen program(s), getting manual input to add to the linked file')
-    parser.add_argument('-c', '--colorise', action='store_true', help='Set up the solarised colourscheme')
     parser.add_argument('--software', action='store_true', help='Install all software in the list')
     parser.add_argument('--scripts', action='store_true', help='Install all user scripts in the ~/.local/bin directory (by linking)')
     parser.add_argument('--links', action='store_true', help='Install all user configuration files in the appropriate directory (by linking)')
