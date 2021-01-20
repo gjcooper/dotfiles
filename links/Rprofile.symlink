@@ -55,6 +55,7 @@ if (interactive()) {
   close(con)
   positive_word <- sample(poslines, 1)
   setup_my_prompt()
+  rm(list=ls())
 } else {
   r <- getOption("repos")
   r["CRAN"] <- "https://cran.csiro.au"

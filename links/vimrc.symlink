@@ -66,6 +66,10 @@ Plugin 'chrisbra/unicode.vim'
 
 Plugin 'heavenshell/vim-jsdoc'
 
+Plugin 'godlygeek/tabular'
+
+Plugin 'plasticboy/vim-markdown'
+
 call vundle#end()            " required
 filetype plugin indent on    " required
 " Modelines=0 means vim does not check files it is opening for commands to
@@ -160,6 +164,8 @@ com! DiffSaved call s:DiffWithSaved()
 
 let g:tex_comment_nospell=1
 let g:tex_flavor = "latex"
+let g:Tex_AdvancedMath = 1
+imap <leader>i <Plug>Tex_InsertItemOnThisLine
 " Enable python code highliting for enaml files
 "au BufNewFile,BufRead *.enaml set filetype=enaml
 "
@@ -170,3 +176,21 @@ map <leader>a <Plug>(ale_toggle)
 
 let g:ale_linters = {'javascript': ['eslint'], 'css': ['eslint'], 'r': ['lintr']}
 let g:ale_fixers = {'javascript': ['prettier'], 'css': ['prettier'], 'html': ['prettier'], 'r': ['styler']}
+
+" Vimwiki settings
+let g:vimwiki_list = [{
+  \ 'path': '$HOME/vimwiki',
+  \ 'template_path': '$HOME/vimwiki/templates',
+  \ 'template_default': 'default',
+  \ 'template_ext': '.html'}]
+let g:vimwiki_folding='expr'
+
+" ctags for R
+let g:tagbar_type_r = {
+    \ 'ctagstype' : 'r',
+    \ 'kinds'     : [
+        \ 'f:Functions',
+        \ 'g:GlobalVariables',
+        \ 'v:FunctionVariables',
+    \ ]
+    \ }
