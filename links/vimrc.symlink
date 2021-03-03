@@ -184,6 +184,7 @@ let g:vimwiki_list = [{
   \ 'template_default': 'default',
   \ 'template_ext': '.html'}]
 let g:vimwiki_folding='expr'
+let g:vimwiki_hl_headers = 1
 
 " ctags for R
 let g:tagbar_type_r = {

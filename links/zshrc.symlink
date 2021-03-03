@@ -44,6 +44,7 @@ DISABLE_AUTO_TITLE="true"
 plugins=(git vi-mode command-not-found my-aliases history-substring-search)
 
 source $ZSH/oh-my-zsh.sh
+unsetopt AUTO_CD
 
 #Setup path, make sure it has unique values. Only add if path is resolved...
 typeset -U path
@@ -83,3 +84,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 export HOST=$(hostname)
+
+# Install Ruby Gems to ~/gems'
+export GEM_HOME="$HOME/gems"
+export PATH="$HOME/gems/bin:$PATH"

@@ -21,7 +21,7 @@ alias p3='python3'
 alias d2u='dos2unix'
 alias ip3='ipython3'
 alias vend='deactivate'
-alias venm='mkvirtualenv'
+alias venm='mkvirtualenv -p python'
 alias vena='workon'
 alias coverr='coverage run --omit="venv/*" -m unittest discover && coverage report -m'
 
