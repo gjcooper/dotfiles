@@ -69,6 +69,7 @@ Plugin 'heavenshell/vim-jsdoc'
 Plugin 'godlygeek/tabular'
 
 Plugin 'plasticboy/vim-markdown'
+Plugin 'vim-pandoc/vim-pandoc-syntax'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -129,7 +130,7 @@ autocmd FileType python\|enaml set expandtab sts=4 ts=4 sw=4 cc=80 fdm=indent fo
 " Narrower tabwidth for html/css
 autocmd FileType html\|css\|javascript set expandtab sts=2 ts=2 sw=2 cc=80 foldmethod=syntax
 "Auto word wrap for tex files
-autocmd FileType tex set linebreak tw=80 cc=80
+autocmd FileType tex set linebreak wrap cc=80 breakindent
 "For use with nvim-r and R so that R starts in tmux pane
 let R_tmux_title = 'automatic'
 let R_assign= 2
@@ -141,6 +142,9 @@ let r_syntax_folding = 1
 "tab key matches bracket pairs
 nnoremap <tab> %
 vnoremap <tab> %
+"Fold method and file settings for Rmd
+autocmd FileType rmd set expandtab sts=2 ts=2 sw=2 cc=80
+autocmd FileType rmd inoremap <buffer> >> <Esc>:normal! a %>%<CR>a
 
 "Search for current word under cursor with F4
 map <F4> :execute " grep -srnw --binary-files=without-match --exclude=.swp --exclude-dir=.git . -e " . expand("<cword>") . " " <bar> cwindow<CR>

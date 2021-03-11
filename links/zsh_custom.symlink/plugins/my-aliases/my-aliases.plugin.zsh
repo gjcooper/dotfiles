@@ -64,3 +64,5 @@ EOM
 	fi
 	find $dir -maxdepth 1 -type l -exec ls --color -d -l {} \;
 }
+
+hgrep () {fc -Dlim "*$@*" 1 }
