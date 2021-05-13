@@ -99,7 +99,7 @@ bindsym $mod+a focus parent
 bindsym Scroll_Lock exec xset led 3
 
 # Open system settings
-bindsym $mod+Shift+s exec env XDG_CURRENT_DESKTOP=GNOME gnome-control-center
+bindsym $mod+Shift+s exec env XDG_CURRENT_DESKTOP=GNOME /usr/libexec/gsd-xsettings
 
 # focus the child container
 #bindsym $mod+d focus child
@@ -243,7 +243,9 @@ bar {
 exec --no-startup-id sleep 2 && randBG
 exec --no-startup-id sleep 3 && xfce4-power-manager
 exec --no-startup-id monitor
+exec --no-startup-id dunst
 exec --no-startup-id udiskie
+exec --no-startup-id gnome-settings-daemon
 
 # class                 border  backgr. text    indicator child_border
 client.focused          #665c54 #665c54 #eddbb2 #2e9ef4   #665c54

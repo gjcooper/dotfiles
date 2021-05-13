@@ -145,6 +145,8 @@ vnoremap <tab> %
 "Fold method and file settings for Rmd
 autocmd FileType rmd set expandtab sts=2 ts=2 sw=2 cc=80
 autocmd FileType rmd inoremap <buffer> >> <Esc>:normal! a %>%<CR>a
+autocmd FileType vimwiki set expandtab sts=2 ts=2 sw=2 cc=80
+autocmd FileType vimwiki set expandtab sts=2 ts=2 sw=2 cc=80
 
 "Search for current word under cursor with F4
 map <F4> :execute " grep -srnw --binary-files=without-match --exclude=.swp --exclude-dir=.git . -e " . expand("<cword>") . " " <bar> cwindow<CR>
@@ -178,17 +180,19 @@ map <leader>k <Plug>(ale_previous_wrap)
 map <leader>j <Plug>(ale_next_wrap)
 map <leader>a <Plug>(ale_toggle)
 
-let g:ale_linters = {'javascript': ['eslint'], 'css': ['eslint'], 'r': ['lintr']}
+let g:ale_linters = {'javascript': ['eslint'], 'css': ['eslint'], 'r': ['lintr'], 'xml': ['xmllint']}
 let g:ale_fixers = {'javascript': ['prettier'], 'css': ['prettier'], 'html': ['prettier'], 'r': ['styler']}
 
 " Vimwiki settings
 let g:vimwiki_list = [{
   \ 'path': '$HOME/vimwiki',
+  \ 'auto_toc': 1,
   \ 'template_path': '$HOME/vimwiki/templates',
   \ 'template_default': 'default',
   \ 'template_ext': '.html'}]
 let g:vimwiki_folding='expr'
 let g:vimwiki_hl_headers = 1
+let g:vimwiki_global_ext = 0
 
 " ctags for R
 let g:tagbar_type_r = {

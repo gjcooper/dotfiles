@@ -20,12 +20,38 @@ compdef _git gpall=git-push
 alias p3='python3'
 alias d2u='dos2unix'
 alias ip3='ipython3'
-alias vend='deactivate'
-alias venm='mkvirtualenv -p python'
-alias vena='workon'
+alias vend='pyenv deactivate'
+alias vena='pyenv activate'
+alias venrm='pyenv uninstall'
 alias coverr='coverage run --omit="venv/*" -m unittest discover && coverage report -m'
 
 # Functions
+venm () {
+	read -r -d '' USAGE <<- EOM
+		venm [name]
+		  [name] is the name of the virtualenv to create
+
+		  The virtual environment is created in $WORKON_HOME and is created using `python -m venv`
+
+		  This means the current version of python as returned by pyenv is used
+EOM
+	if [[ $# == 0 ]]; then
+		echo "$USAGE"
+		return
+	elif [[ $# == 1 ]]; then
+		name=$1
+		version=$(pyenv version-name)
+	elif [[ $# == 2 ]]; then
+		version=$1
+		name=$2
+	else
+		echo "$USAGE"
+		return
+	fi
+	pyenv virtualenv $version $name
+	vena $name
+}
+
 venl () {
 	read -r -d '' USAGE <<- EOM
 		venl [name]
@@ -34,7 +60,7 @@ venl () {
 		  if called without a name venl will list all virtualenvs in the $WORKON_HOME folder.
 EOM
 	if [[ $# == 0 ]]; then
-		lsvirtualenv -b
+		pyenv virtualenvs
 		return
 	elif [[ $# == 1 ]]; then
 		name=$1

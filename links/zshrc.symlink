@@ -41,7 +41,7 @@ DISABLE_AUTO_TITLE="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git vi-mode command-not-found my-aliases history-substring-search)
+plugins=(git vi-mode command-not-found my-aliases history-substring-search virtualenv)
 
 source $ZSH/oh-my-zsh.sh
 unsetopt AUTO_CD
@@ -50,6 +50,7 @@ unsetopt AUTO_CD
 typeset -U path
 
 path+=(/home/gjc216/.local/bin(N))
+path+=(/home/gjc216/.local/bin/MATLAB/R2021a/bin(N))
 
 export EDITOR=/usr/bin/vim
 export VISUAL=/usr/bin/vim
@@ -60,6 +61,7 @@ then
 fi
 
 export WORKON_HOME=$HOME/.virtualenvs
+export VIRTUALENVWRAPPER_PYTHON="$(command \which python3)"
 export VIRTUALENV_PYTHON=/usr/bin/python3
 DEFAULT_LOCATION=/usr/local/bin/virtualenvwrapper.sh
 PRIVATE_LOCATION=$HOME/.local/bin/virtualenvwrapper.sh

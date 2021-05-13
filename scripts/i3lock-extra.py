@@ -30,7 +30,7 @@ def	place_locks():
                          '+{}+{}'.format(p_x, p_y), '-composite', '-matte',
                          tmpbg])
 
-subprocess.call(['scrot', tmpbg])
+subprocess.call(['scrot', '-o', tmpbg])
 subprocess.call(['convert', tmpbg, '-scale', '10%', '-scale', '1000%', tmpbg])
 place_locks()
 subprocess.call(['i3lock', '-i', tmpbg])
