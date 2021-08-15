@@ -40,12 +40,15 @@ bindsym $mod+Shift+q kill
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
-bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+bindsym $mod+d exec dmenu_run
 
 #Volume controls
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
+bindsym Shift+XF86AudioRaiseVolume exec --no-startup-id pactl set-source-volume 1 +5% #increase sound volume
+bindsym Shift+XF86AudioLowerVolume exec --no-startup-id pactl set-source-volume 1 -5% #decrease sound volume
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
 
 # change focus
@@ -115,6 +118,8 @@ set $tag3 "3: Web"
 set $tag4 "4: Zoom"
 set $tag5 "5: Read"
 
+# Rename workspace with i3-input using numbers and text
+bindsym $mod+Shift+n exec i3-input -F 'rename workspace to "%s"' -P 'New name: '
 bindsym $mod+n exec i3-input -F 'rename workspace to "%s"' -P 'New name for this workspace: '
 
 # Switch to workspace
@@ -157,8 +162,6 @@ bindsym $mod+Shift+8 move container to workspace number 8; workspace number 8
 bindsym $mod+Shift+9 move container to workspace number 9; workspace number 9
 bindsym $mod+Shift+0 move container to workspace number 10; workspace number 10
 
-# Rename workspace with i3-input using numbers and text
-bindsym $mod+Shift+n exec i3-input -F 'rename workspace to "%s"' -P 'New name: '
 
 ##########################################################################
 #                                applications                            #
