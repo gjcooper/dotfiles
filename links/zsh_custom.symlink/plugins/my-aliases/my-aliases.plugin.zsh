@@ -28,20 +28,13 @@ alias coverr='coverage run --omit="venv/*" -m unittest discover && coverage repo
 # Functions
 venm () {
 	read -r -d '' USAGE <<- EOM
-		venm [name]
-		  [name] is the name of the virtualenv to create
+		venm version name
+		  name is the name of the virtualenv to create, and is required
+		  version is the version of python (provided by > pyenv versions)
 
-		  The virtual environment is created in $WORKON_HOME and is created using `python -m venv`
-
-		  This means the current version of python as returned by pyenv is used
+		  The virtual environment is created in $WORKON_HOME
 EOM
-	if [[ $# == 0 ]]; then
-		echo "$USAGE"
-		return
-	elif [[ $# == 1 ]]; then
-		name=$1
-		version=$(pyenv version-name)
-	elif [[ $# == 2 ]]; then
+	if [[ $# == 2 ]]; then
 		version=$1
 		name=$2
 	else
