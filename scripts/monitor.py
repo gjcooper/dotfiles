@@ -4,6 +4,7 @@ import subprocess
 import time
 from contextlib import contextmanager
 import logging
+from pathlib import Path
 
 logging.basicConfig(filename='monitor.log', level=logging.DEBUG)
 logger = logging.getLogger(__name__)
@@ -27,6 +28,7 @@ monitor_modes = {
 pipe_path = "/tmp/monitor_pipe"
 mode_path = '/tmp/monitor_mode.dat'
 wait_time = 2
+check_time = 5  # Time to wait before checking for a change in connected monitors
 
 
 @contextmanager
@@ -55,6 +57,16 @@ def connected():
     return connected
 
 
+def get_file_state():
+    """Look at file status to get connected monitors
+    :returns: TODO
+
+    """
+    dirs = Path('/sys/devices/pci0000:00/0000:00:02.0/drm/card0/').glob('card0*')
+    status_files = (p / 'status' for p in dirs)
+    return [sf.read_text().strip() for sf in status_files]
+
+
 def switch(mode, cmd):
     """Switch modes and save current mode to a temp file"""
     logger.debug(xcmd_start + cmd)
@@ -70,6 +82,7 @@ def watch(mode):
     mode, cmdend = monitor_modes[1]['INTERNAL']
     switch(mode, cmdend.format(*outputs))
     start_time = 0
+    _state_trace = get_file_state()
     with get_pipe(pipe_path) as pipe:
         while True:
             if monitor_state == 'LOOK':
@@ -93,6 +106,15 @@ def watch(mode):
                 subprocess.call(['notify-send', mode, '-t', '500'])
                 start_time = time.time()
                 time.sleep(0.1)
+            elif time.time() - start_time > check_time:
+                monitor_statuses = get_file_state()
+                if monitor_statuses != _state_trace:
+                    _state_trace = monitor_statuses
+                    # Switch back to internal only
+                    monitor_state = 'IDLE'  # (or LOOK)
+                    mode, cmdend = monitor_modes[1]['INTERNAL']
+                    switch(mode, cmdend.format(*outputs))
+                start_time = time.time()
             else:
                 time.sleep(0.25)
 
