@@ -40,16 +40,15 @@ bindsym $mod+Shift+q kill
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
-# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
-bindsym $mod+d exec dmenu_run
+bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 #Volume controls
 # Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
-bindsym Shift+XF86AudioRaiseVolume exec --no-startup-id pactl set-source-volume 1 +5% #increase sound volume
-bindsym Shift+XF86AudioLowerVolume exec --no-startup-id pactl set-source-volume 1 -5% #decrease sound volume
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% #decrease sound volume
+bindsym Shift+XF86AudioRaiseVolume exec --no-startup-id pactl set-source-volume @DEFAULT_SOURCE@ +5% #increase sound volume
+bindsym Shift+XF86AudioLowerVolume exec --no-startup-id pactl set-source-volume @DEFAULT_SOURCE@ -5% #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle # mute sound
 
 # change focus
 bindsym $mod+h focus left
@@ -249,6 +248,7 @@ exec --no-startup-id monitor
 exec --no-startup-id dunst
 exec --no-startup-id udiskie
 exec --no-startup-id gnome-settings-daemon
+exec --no-startup-id pasystray
 
 # class                 border  backgr. text    indicator child_border
 client.focused          #665c54 #665c54 #eddbb2 #2e9ef4   #665c54
