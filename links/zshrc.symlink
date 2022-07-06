@@ -76,7 +76,7 @@ alias tmux="TERM=xterm-256color tmux"
 
 export R_HISTFILE=~/.Rhistory
 
-export PATH="/home/gjc216/.pyenv/bin:$PATH"
+path+=(/home/gjc216/.pyenv/bin(N))
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
@@ -89,4 +89,9 @@ export HOST=$(hostname)
 
 # Install Ruby Gems to ~/gems'
 export GEM_HOME="$HOME/gems"
-export PATH="$HOME/gems/bin:$PATH"
+path+=(/home/gjc216/gems/bin(N))
+path+=(/usr/local/go/bin(N))
+
+# Hugo install path
+path+=(/home/gjc216/.local/share/Hugo/0.99.0)
+export PATH
