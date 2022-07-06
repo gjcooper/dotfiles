@@ -2,6 +2,8 @@
 # Extra git aliases (on top of zsh standard ones)
 alias gdt='git difftool'
 compdef _git gdt=git-difftool
+alias gmt='git mergetool'
+compdef _git gmt=git-mergetool
 alias glc='git log --pretty=format:"%C(bold green)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=relative'
 compdef _git glc=git-log
 alias glca='git log --pretty=format:"%C(bold green)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=relative --all'
