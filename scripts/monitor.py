@@ -11,8 +11,9 @@ logger = logging.getLogger(__name__)
 
 HDMI_OUTPUT = "HDMI-1"
 USBC_OUTPUT = "DP-2"
+USBC_ALONE_OUTPUT = "DP-1"
 INTERNAL_OUTPUT = "eDP-1"
-outputs = [INTERNAL_OUTPUT, HDMI_OUTPUT, USBC_OUTPUT]
+outputs = [INTERNAL_OUTPUT, HDMI_OUTPUT, USBC_OUTPUT, USBC_ALONE_OUTPUT]
 monitor_mode = 'INTERNAL'
 xcmd_start = 'xrandr '
 monitor_modes = {
@@ -54,6 +55,7 @@ def connected():
             if line.startswith(output):
                 if line.split()[1] == 'connected':
                     connected.append(output)
+    logger.debug('CONNECTED: %s', connected)
     return connected
 
 
@@ -67,8 +69,9 @@ def get_file_state():
     return [sf.read_text().strip() for sf in status_files]
 
 
-def switch(mode, cmd):
+def switch(mode, cmd, connected):
     """Switch modes and save current mode to a temp file"""
+    cmd = cmd.format(*(connected + list(set(outputs) - set(connected))))
     logger.debug(xcmd_start + cmd)
     subprocess.call((xcmd_start + cmd).split())
     with open(mode_path, 'w') as monout:
@@ -80,14 +83,15 @@ def watch(mode):
     # Reset on reboot/reload of settings to internal only
     monitor_state = 'IDLE'  # (or LOOK)
     mode, cmdend = monitor_modes[1]['INTERNAL']
-    switch(mode, cmdend.format(*outputs))
+    conn_outputs = [outputs[0]]
+    switch(mode, cmdend, conn_outputs)
     start_time = 0
     _state_trace = get_file_state()
     with get_pipe(pipe_path) as pipe:
         while True:
             if monitor_state == 'LOOK':
                 if time.time() - start_time > wait_time:
-                    switch(mode, cmdend.format(*outputs))
+                    switch(mode, cmdend, conn_outputs)
                     monitor_state = 'IDLE'
 
             message = pipe.read()
@@ -113,7 +117,7 @@ def watch(mode):
                     # Switch back to internal only
                     monitor_state = 'IDLE'  # (or LOOK)
                     mode, cmdend = monitor_modes[1]['INTERNAL']
-                    switch(mode, cmdend.format(*outputs))
+                    switch(mode, cmdend, conn_outputs)
                 start_time = time.time()
             else:
                 time.sleep(0.25)
