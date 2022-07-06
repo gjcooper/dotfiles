@@ -193,6 +193,20 @@ map <leader>k <Plug>(ale_previous_wrap)
 map <leader>j <Plug>(ale_next_wrap)
 map <leader>a <Plug>(ale_toggle)
 
+" Toggle diffmode on windows
+map <leader>d :call DiffModeToggle()<cr>
+
+" Set go template engine in html
+map <leader>h :set filetype=gohtmltmpl<cr>
+
+function! DiffModeToggle()
+	if &diff
+		windo diffoff
+	else
+		windo diffthis
+	endif
+endfunction
+
 let g:ale_linters = {'javascript': ['eslint'], 'css': ['eslint'], 'r': ['lintr'], 'xml': ['xmllint']}
 let g:ale_fixers = {'javascript': ['prettier'], 'css': ['prettier'], 'html': ['prettier'], 'r': ['styler']}
 
@@ -216,3 +230,11 @@ let g:tagbar_type_r = {
         \ 'v:FunctionVariables',
     \ ]
     \ }
+
+" pydocstring settings
+let g:pydocstring_doq_path = '/home/gjc216/.local/bin/doq'
+let g:pydocstring_formatter = 'numpy'
+
+" Ultisnips settings
+autocmd FileType javascript UltiSnipsAddFiletypes javascript-jsdoc
+
