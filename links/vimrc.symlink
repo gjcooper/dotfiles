@@ -38,7 +38,8 @@ Plugin 'Glench/Vim-Jinja2-Syntax'
 Plugin 'thanthese/Tortoise-Typing'
 
 Plugin 'ctrlpvim/ctrlp.vim'
-"Plugin 'hdima/python-syntax'
+Plugin 'heavenshell/vim-pydocstring'
+
 Plugin 'gjcooper/JA_Vimfiles'  " Inquisit syntax colouring and folding
 Plugin 'gjcooper/mysnippets'  " My vim snippets
 
@@ -68,6 +69,14 @@ Plugin 'godlygeek/tabular'
 
 Plugin 'plasticboy/vim-markdown'
 Plugin 'vim-pandoc/vim-pandoc-syntax'
+
+Plugin 'Rykka/riv.vim'
+
+Plugin 'fatih/vim-go'
+
+" vim-plug
+Plugin 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
+
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -144,7 +153,8 @@ vnoremap <tab> %
 autocmd FileType rmd set expandtab sts=2 ts=2 sw=2 cc=80
 autocmd FileType rmd inoremap <buffer> >> <Esc>:normal! a %>%<CR>a
 autocmd FileType vimwiki set expandtab sts=2 ts=2 sw=2 cc=80
-autocmd FileType vimwiki set expandtab sts=2 ts=2 sw=2 cc=80
+"Fold method and file settings for RST
+autocmd FileType rst set expandtab sts=3 ts=3 sw=3 cc=80
 
 "Search for current word under cursor with F4
 map <F4> :execute " grep -srnw --binary-files=without-match --exclude=.swp --exclude-dir=.git . -e " . expand("<cword>") . " " <bar> cwindow<CR>
