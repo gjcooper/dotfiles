@@ -153,9 +153,14 @@ nmap <F5> <Plug>ToggleDiffCharAllLines
 nmap <F6> <Plug>ToggleDiffCharCurrentLine
 
 " Load the PaperColor colour scheme
-set t_Co=256   " This is may or may not needed.
+" set Vim-specific sequences for RGB colors
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+set termguicolors
+" set t_Co=256   " This is may or may not needed.
 set background=dark
 colorscheme PaperColor
+
 
 function! s:DiffWithSaved()
   let filetype=&ft

@@ -4,6 +4,8 @@ set-option -g status-keys vi
 
 #Setting 256-colour terminal
 set -g default-terminal "screen-256color"
+# Allow truecolor
+set-option -sa terminal-overrides ",xterm*:Tc"
 #set -g default-terminal "screen-16color"
 
 #set-window-option -g utf8 on # utf8 support
