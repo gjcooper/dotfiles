@@ -3,7 +3,7 @@ set-window-option -g mode-keys vi # vi key
 set-option -g status-keys vi
 
 #Setting 256-colour terminal
-set -g default-terminal "screen-256color"
+set -g default-terminal "xterm-256color"
 # Allow truecolor
 set-option -sa terminal-overrides ",xterm*:Tc"
 #set -g default-terminal "screen-16color"
@@ -42,6 +42,23 @@ bind-key l select-pane -R
 bind '"' split-window -c "#{pane_current_path}"
 bind % split-window -h -c "#{pane_current_path}"
 bind c new-window -c "#{pane_current_path}" -n ''
+## status bar
+#set-option -g status-utf8 on
+#set-option -g status-justify left
+set-option -g status-bg magenta
+#set-option -g status-fg white
+#set-option -g message-attr none
+#set-option -g message-bg white
+#set-option -g message-fg black
+#set-window-option -g window-status-bell-bg cyan
+#set-window-option -g window-status-bell-attr bright
+#set-window-option -g window-status-activity-bg red
+#set-window-option -g window-status-activity-attr bright
+#set-option -g status-interval 5
+#set-option -g status-left-length 30
+##set-option -g status-left '#[fg=magenta]» #[fg=blue,bold]#T#[default]'
+#set-option -g status-left  '#[fg=cyan][#S#[fg=black,bold]#P#[default]#[fg=cyan]]#[default]'
+#set-option -g status-right "#[fg=red]#(battery Discharging)#[fg=blue]#(battery Charging) #[fg=$TMUX_SHELL_COLOR]$sHost#[default]#[fg=cyan] %d %b %R"
 
 run-shell ~/.local/lib/tmux-resurrect/resurrect.tmux
 bind r source-file ~/.tmux.conf

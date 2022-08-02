@@ -60,27 +60,11 @@ then
     eval `dircolors ~/.dircolors`
 fi
 
-export WORKON_HOME=$HOME/.virtualenvs
-export VIRTUALENVWRAPPER_PYTHON="$(command \which python3)"
-export VIRTUALENV_PYTHON=/usr/bin/python3
-DEFAULT_LOCATION=/usr/local/bin/virtualenvwrapper.sh
-PRIVATE_LOCATION=$HOME/.local/bin/virtualenvwrapper.sh
-if [ -f $DEFAULT_LOCATION ]; then
-	source $DEFAULT_LOCATION
-elif [ -f $PRIVATE_LOCATION ]; then
-	source $PRIVATE_LOCATION
-else
-	echo "WARNING: virtualenvwrapper.sh not found, please locate and update your zshrc file"
-fi
 alias tmux="TERM=xterm-256color tmux"
 
 export R_HISTFILE=~/.Rhistory
 
 path+=(/home/gjc216/.pyenv/bin(N))
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
-pyenv virtualenvwrapper_lazy
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -95,3 +79,6 @@ path+=(/usr/local/go/bin(N))
 # Hugo install path
 path+=(/home/gjc216/.local/share/Hugo/0.99.0)
 export PATH
+
+# Required for rtdists etc (custom gsl location)
+export LD_LIBRARY_PATH="/usr/local/gsl/2.5/x86_64/lib64"
