@@ -2,8 +2,6 @@
 set-window-option -g mode-keys vi # vi key
 set-option -g status-keys vi
 
-#Setting 256-colour terminal
-set -g default-terminal "xterm-256color"
 # Allow truecolor
 set-option -sa terminal-overrides ",xterm*:Tc"
 #set -g default-terminal "screen-16color"
@@ -16,8 +14,9 @@ if-shell "[[ `tmux -V | cut -d' ' -f2` -lt 2.1 ]]" 'set-window-option -g mode-mo
 set-window-option -g automatic-rename off # auto name
 set-window-option -g allow-rename off # disable renames altogether
 
+# Less obnoxious colors (server defaults)
 # Less obnoxious colors
-set -g pane-active-border-style fg=cyan,bg=default
+set -g pane-active-border-style fg=magenta,bg=default
 set -g pane-border-style fg=black,bg=default
 
 # Create an environment that zsh can make sense of

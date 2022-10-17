@@ -82,3 +82,6 @@ export PATH
 
 # Required for rtdists etc (custom gsl location)
 export LD_LIBRARY_PATH="/usr/local/gsl/2.5/x86_64/lib64"
+#
+# Mount S3 study data
+mount_s3.sh
