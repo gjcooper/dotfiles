@@ -1,85 +1,78 @@
 "remove vi compatibility
 set nocompatible " Not needed when vimrc exists
 
-" Required Vundle setup
-filetype off
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+call plug#begin('~/.vim/plugged')
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
 
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
+" let vim-plug manage vim-plug, required for help
+Plug 'junegunn/vim-plug'
 
 " The following are examples of different formats supported.
-" Keep Plugin commands between vundle#begin/end.
-" plugin on GitHub repo
-Plugin 'tpope/vim-sensible'
-Plugin 'tpope/vim-surround'
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-surround'
 
-Plugin 'fs111/pydoc.vim'
+Plug 'fs111/pydoc.vim'
 
-Plugin 'gjcooper/vim-nbs-pres'
+Plug 'gjcooper/vim-nbs-pres'
 
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'tomtom/tlib_vim'
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'tomtom/tlib_vim'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'morhetz/gruvbox'
-Plugin 'NLKNguyen/papercolor-theme'
-Plugin 'will133/vim-dirdiff'
+" Plug 'altercation/vim-colors-solarized'
+" Plug 'morhetz/gruvbox'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'will133/vim-dirdiff'
 
-Plugin 'raimon49/requirements.txt.vim'
-Plugin 'Glench/Vim-Jinja2-Syntax'
+Plug 'raimon49/requirements.txt.vim'
+Plug 'Glench/Vim-Jinja2-Syntax'
 
-Plugin 'thanthese/Tortoise-Typing'
+" Plug 'thanthese/Tortoise-Typing'
 
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'heavenshell/vim-pydocstring'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'heavenshell/vim-pydocstring'
 
-Plugin 'gjcooper/JA_Vimfiles'  " Inquisit syntax colouring and folding
-Plugin 'gjcooper/mysnippets'  " My vim snippets
+Plug 'gjcooper/JA_Vimfiles'  " Inquisit syntax colouring and folding
+Plug 'gjcooper/mysnippets'  " My vim snippets
 
-Plugin 'maverickg/stan.vim'
+" Plug 'maverickg/stan.vim'
 
-Plugin 'rickhowe/diffchar.vim' " Character level diff views
+Plug 'rickhowe/diffchar.vim' " Character level diff views
+Plug 'AndrewRadev/linediff.vim' " Block level diff
 
-Plugin 'jalvesaq/Nvim-R' " R code support within vim
+Plug 'jalvesaq/Nvim-R', {'branch': 'oldstable'} " R code support within vim
 
-Plugin 'gjcooper/vim-local'
+Plug 'gjcooper/vim-local'
 
-Plugin 'vim-latex/vim-latex'
+Plug 'vim-latex/vim-latex'
 
-Plugin 'tpope/vim-fugitive'
+" Plug 'tpope/vim-fugitive'
 
-Plugin 'pangloss/vim-javascript'
+Plug 'pangloss/vim-javascript'
 
-Plugin 'w0rp/ale'
+Plug 'w0rp/ale'
 
-Plugin 'vimwiki/vimwiki'
+Plug 'vimwiki/vimwiki'
 
-Plugin 'chrisbra/unicode.vim'
+Plug 'chrisbra/unicode.vim'
 
-Plugin 'heavenshell/vim-jsdoc'
+Plug 'heavenshell/vim-jsdoc'
 
-Plugin 'godlygeek/tabular'
+Plug 'godlygeek/tabular'
 
-Plugin 'plasticboy/vim-markdown'
-Plugin 'vim-pandoc/vim-pandoc-syntax'
+Plug 'plasticboy/vim-markdown'
+Plug 'vim-pandoc/vim-pandoc-syntax'
 
-Plugin 'Rykka/riv.vim'
+Plug 'Rykka/riv.vim'
 
-Plugin 'fatih/vim-go'
+Plug 'fatih/vim-go'
 
-" vim-plug
-Plugin 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
+Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 
 
-call vundle#end()            " required
-filetype plugin indent on    " required
+call plug#end()            " required
 " Modelines=0 means vim does not check files it is opening for commands to
 " follow
 set modelines=0
@@ -118,8 +111,8 @@ set showmatch
 set hlsearch
 "Fix pasting via right-click and autoindenting
 set pastetoggle=<F2>
-"Set tabstop and shiftwidth to be 4
-set ts=4 sw=4
+"Set tabstop and shiftwidth to be 4 and set expandtab by default for all files
+set ts=4 sw=4 expandtab
 "Set listchars for :set list
 set listchars=tab:»\ ,extends:›,precedes:‹,nbsp:·,trail:·,eol:↲
 if has("patch-7.4.710")
@@ -133,28 +126,33 @@ autocmd FileType python nnoremap <silent> <leader>r :!clear;python %<CR>
 "We also want to set foldmethod as indent for python/enaml
 "We also want to set foldnestmax for python/enaml
 " Create visual column for "screen width"
-autocmd FileType python\|enaml set expandtab sts=4 ts=4 sw=4 cc=80 fdm=indent foldnestmax=3
+autocmd FileType python\|enaml set sts=4 ts=4 sw=4 cc=80 fdm=indent foldnestmax=3
+let g:ultisnips_python_quoting_style="single"
+let g:ultisnips_python_style="numpy"
+
 " Narrower tabwidth for html/css
-autocmd FileType html\|css\|javascript set expandtab sts=2 ts=2 sw=2 cc=80 foldmethod=syntax
+autocmd FileType html\|css\|javascript\|json set sts=2 ts=2 sw=2 cc=80 foldmethod=syntax
 "Auto word wrap for tex files
 autocmd FileType tex set linebreak wrap cc=80 breakindent
 "For use with nvim-r and R so that R starts in tmux pane
 let R_tmux_title = 'automatic'
 let R_assign= 2
 let R_pdfviewer = 'xpdf'
+"For use with nvim-r so that commented lines get sent to R console
+let R_commented_lines = 1
 "Fold method and file settings for R
-autocmd FileType r set fdm=syntax expandtab sts=2 ts=2 sw=2 cc=80 
+autocmd FileType r set fdm=syntax sts=2 ts=2 sw=2 cc=80 
 autocmd FileType r inoremap <buffer> >> <Esc>:normal! a %>%<CR>a
 let r_syntax_folding = 1
 "tab key matches bracket pairs
 nnoremap <tab> %
 vnoremap <tab> %
 "Fold method and file settings for Rmd
-autocmd FileType rmd set expandtab sts=2 ts=2 sw=2 cc=80
+autocmd FileType rmd set sts=2 ts=2 sw=2 cc=80
 autocmd FileType rmd inoremap <buffer> >> <Esc>:normal! a %>%<CR>a
-autocmd FileType vimwiki set expandtab sts=2 ts=2 sw=2 cc=80
+autocmd FileType vimwiki set sts=2 ts=2 sw=2 cc=80
 "Fold method and file settings for RST
-autocmd FileType rst set expandtab sts=3 ts=3 sw=3 cc=80
+autocmd FileType rst set sts=3 ts=3 sw=3 cc=80
 
 "Search for current word under cursor with F4
 map <F4> :execute " grep -srnw --binary-files=without-match --exclude=.swp --exclude-dir=.git . -e " . expand("<cword>") . " " <bar> cwindow<CR>
@@ -184,7 +182,8 @@ com! DiffSaved call s:DiffWithSaved()
 let g:tex_comment_nospell=1
 let g:tex_flavor = "latex"
 let g:Tex_AdvancedMath = 1
-imap <leader>i <Plug>Tex_InsertItemOnThisLine
+" Should only do this in latex files
+autocmd FileType tex imap <buffer> <leader>i <Plug>Tex_InsertItemOnThisLine
 " Enable python code highliting for enaml files
 "au BufNewFile,BufRead *.enaml set filetype=enaml
 "
@@ -198,6 +197,9 @@ map <leader>d :call DiffModeToggle()<cr>
 
 " Set go template engine in html
 map <leader>h :set filetype=gohtmltmpl<cr>
+
+" Insert current date and time for hugo page header
+map <leader>t :put =strftime('date: %Y-%m-%dT%T%z')<cr>
 
 function! DiffModeToggle()
 	if &diff
@@ -234,6 +236,8 @@ let g:tagbar_type_r = {
 " pydocstring settings
 let g:pydocstring_doq_path = '/home/gjc216/.local/bin/doq'
 let g:pydocstring_formatter = 'numpy'
+
+let g:vim_markdown_folding_disabled = 1
 
 " Ultisnips settings
 autocmd FileType javascript UltiSnipsAddFiletypes javascript-jsdoc
