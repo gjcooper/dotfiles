@@ -50,6 +50,9 @@ def connected():
     """Get the current connected output(s)"""
     xout = subprocess.check_output(['xrandr'], universal_newlines=True)
     connected = []
+    outputs = [line.split()[0]
+               for line in xout.splitlines()
+               if 'connected' in line]
     for output in outputs:
         for line in xout.splitlines():
             if line.startswith(output):
