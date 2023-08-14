@@ -15,6 +15,9 @@ alias mmv='noglob zmv -W'
 # Set to this to use case-sensitive completion
 CASE_SENSITIVE="true"
 
+# Disable XON/XOFF flow control
+stty -ixon
+
 # Comment this out to disable bi-weekly auto-update checks
 # DISABLE_AUTO_UPDATE="true"
 
@@ -93,5 +96,5 @@ path+=(/home/gjc216/gems/bin(N))
 path+=(/usr/local/go/bin(N))
 
 # Hugo install path
-path+=(/home/gjc216/.local/share/Hugo/0.99.0)
+path+=(/home/gjc216/.local/share/Hugo/0.116.1)
 export PATH
