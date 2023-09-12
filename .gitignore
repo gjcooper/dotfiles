@@ -1,3 +1,4 @@
 links/gitconfig.symlink
 links/pypirc.symlink
 local/
+*.swp

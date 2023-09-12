@@ -2,8 +2,6 @@
 set nocompatible " Not needed when vimrc exists
 
 call plug#begin('~/.vim/plugged')
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
 
 " let vim-plug manage vim-plug, required for help
 Plug 'junegunn/vim-plug'
@@ -68,6 +66,8 @@ Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'Rykka/riv.vim'
 
 Plug 'fatih/vim-go'
+
+Plug 'cespare/vim-toml', { 'branch': 'main' }
 
 Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 
@@ -209,7 +209,7 @@ function! DiffModeToggle()
 	endif
 endfunction
 
-let g:ale_linters = {'javascript': ['eslint'], 'css': ['eslint'], 'r': ['lintr'], 'xml': ['xmllint']}
+let g:ale_linters = {'javascript': ['eslint'], 'css': ['eslint'], 'r': ['lintr'], 'xml': ['xmllint'], 'tex': ['lacheck']}
 let g:ale_fixers = {'javascript': ['prettier'], 'css': ['prettier'], 'html': ['prettier'], 'r': ['styler']}
 
 " Vimwiki settings

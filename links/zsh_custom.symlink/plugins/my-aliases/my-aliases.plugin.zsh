@@ -25,6 +25,7 @@ alias vend='pyenv deactivate'
 alias vena='pyenv activate'
 alias venrm='pyenv uninstall'
 alias coverr='coverage run --omit="venv/*" -m unittest discover && coverage report -m'
+alias dfl='df -h | grep -v snap'
 # AWS/Service Workbench helpers
 alias start_prefnorm='$HOME/swb/start-session.sh gjc216 278440638476 i-073e794196e1e5158'
 alias start_prefred='$HOME/swb/start-session.sh gjc216 278440638476 i-068dc8f24099951a4'
