@@ -62,5 +62,3 @@ if (interactive()) {
   options(repos = r)
   rm(r)
 }
-
-
