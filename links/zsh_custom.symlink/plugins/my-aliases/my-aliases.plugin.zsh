@@ -27,11 +27,25 @@ alias venrm='pyenv uninstall'
 alias coverr='coverage run --omit="venv/*" -m unittest discover && coverage report -m'
 alias dfl='df -h | grep -v snap'
 # AWS/Service Workbench helpers
-alias start_prefnorm='$HOME/swb/start-session.sh gjc216 278440638476 i-073e794196e1e5158'
-alias start_prefred='$HOME/swb/start-session.sh gjc216 278440638476 i-068dc8f24099951a4'
-alias start_prefredmore='$HOME/swb/start-session.sh gjc216 278440638476 i-0cfc3bc49eaa1b503'
-alias start_prefneg='$HOME/swb/start-session.sh gjc216 278440638476 i-08d606d21d6da4f96'
+typeset -A aws_id
+aws_id=([prefnorm]='i-073e794196e1e5158' [prefred]='i-068dc8f24099951a4' [prefredmore]='i-0cfc3bc49eaa1b503' [prefneg]='i-08d606d21d6da4f96' [parallel]='i-0e44d5e2402aa9991')
 alias aws_copymode='$HOME/swb/assume-role.sh gjc216 418071489834'
+
+aws_login () {
+	read -r -d '' USAGE <<- EOM
+		aws_login workspace_name
+		  workspace_name is the name of the workspace to log in to, and
+      is required
+EOM
+
+  if [[ $# -ne 1 ]]; then
+    echo $USAGE >&2
+    exit 2
+  fi
+  wks=$1
+
+  $HOME/swb/start-session.sh gjc216 278440638476 $aws_id[$wks]
+}
 
 
 aws_list () {

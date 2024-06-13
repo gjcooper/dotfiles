@@ -56,7 +56,7 @@ cpu_usage {
 }
 
 memory {
-    format = "FREE %free"
+    format = "MEM %available"
 }
 
 time {

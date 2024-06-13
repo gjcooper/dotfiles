@@ -60,8 +60,9 @@ Plug 'heavenshell/vim-jsdoc'
 
 Plug 'godlygeek/tabular'
 
-Plug 'plasticboy/vim-markdown'
 Plug 'vim-pandoc/vim-pandoc-syntax'
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-rmarkdown'
 
 Plug 'Rykka/riv.vim'
 
@@ -70,6 +71,8 @@ Plug 'fatih/vim-go'
 Plug 'cespare/vim-toml', { 'branch': 'main' }
 
 Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
+
+Plug 'jpalardy/vim-slime'
 
 
 call plug#end()            " required
@@ -198,8 +201,20 @@ map <leader>d :call DiffModeToggle()<cr>
 " Set go template engine in html
 map <leader>h :set filetype=gohtmltmpl<cr>
 
-" Insert current date and time for hugo page header
-map <leader>t :put =strftime('date: %Y-%m-%dT%T%z')<cr>
+" Insert current date and time for hugo page header (markdown only)
+autocmd FileType markdown map <leader>t :put =strftime('date: %Y-%m-%dT%T%z')<cr>
+
+" Working with terminals
+let g:slime_target = "vimterminal"
+map <leader>t :rightbelow vertical terminal<cr>
+"disables default bindings
+let g:slime_no_mappings = 1
+"send visual selection
+xmap <leader>s <Plug>SlimeRegionSend
+"send based on motion or text object
+nmap <leader>s <Plug>SlimeMotionSend
+"send line
+nmap <leader>ss <Plug>SlimeLineSend<cr>
 
 function! DiffModeToggle()
 	if &diff
@@ -237,7 +252,7 @@ let g:tagbar_type_r = {
 let g:pydocstring_doq_path = '/home/gjc216/.local/bin/doq'
 let g:pydocstring_formatter = 'numpy'
 
-let g:vim_markdown_folding_disabled = 1
+let g:pandoc#keyboard#blacklist_submodule_mappings = ['checkboxes']
 
 " Ultisnips settings
 autocmd FileType javascript UltiSnipsAddFiletypes javascript-jsdoc
