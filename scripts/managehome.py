@@ -8,12 +8,9 @@ import argparse
 
 userdir = os.path.expanduser('~')
 scriptdir = os.path.join(userdir, '.local', 'bin')
-vundle_clone_call = ['git', 'clone', 'https://github.com/VundleVim/Vundle.vim.git', os.path.join(userdir, '.vim', 'bundle', 'Vundle.vim')]
-vundle_plugin_call = ['vim', '+PluginInstall', '+qall']
 ohmyzsh_clone_call = ['git', 'clone', 'https://github.com/robbyrussell/oh-my-zsh.git', os.path.join(userdir, '.oh-my-zsh')]
-apt_software_list = ['curl', 'vim-gtk', 'gitk', 'zsh', 'tmux', 'dos2unix', 'i3',
-                 'terminator', 'suckless-tools', 'dbus-x11', 'xsel',
-                 'dkms', 'feh', 'conky', 'compton']
+apt_software_list = ['vim-gtk', 'zsh', 'tmux', 'dos2unix', 'i3',
+                     'bemenu', 'sway', 'swaylock', 'swayidle', 'swaybg']
 other_software = ['curl https://pyenv.run | bash']
 
 

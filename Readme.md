@@ -17,3 +17,10 @@ Xubuntu 20.04 install into VirtualBox (i3 version)
 * run dotfiles/scripts/managehome.py script: python3 managehome.py ~/dotfiles
 * chsh gavin -s /bin/zsh
 * link randBG script to /user/local/bin
+
+## Process for UK laptop
+
+* preinstalled Ubuntu
+* wayland installed - lets try this
+* Let's also clear out programs/etc
+
