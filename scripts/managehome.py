@@ -8,9 +8,12 @@ import argparse
 
 userdir = os.path.expanduser('~')
 scriptdir = os.path.join(userdir, '.local', 'bin')
+vimplug_install_call = ['curl', '-fLo', '~/.vim/autoload/plug.vim', '--create-dirs',
+                      'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim']
+vimplug_plugin_call = ['vim', '+PlugInstall', '+qall']
 ohmyzsh_clone_call = ['git', 'clone', 'https://github.com/robbyrussell/oh-my-zsh.git', os.path.join(userdir, '.oh-my-zsh')]
-apt_software_list = ['vim-gtk', 'zsh', 'tmux', 'dos2unix', 'i3',
-                     'bemenu', 'sway', 'swaylock', 'swayidle', 'swaybg']
+apt_software_list = ['curl', 'vim-gtk', 'zsh', 'tmux', 'dos2unix',
+                     'sway', 'swaylock', 'swayidle', 'swaybg']
 other_software = ['curl https://pyenv.run | bash']
 
 
@@ -171,9 +174,9 @@ class SetupManager():
         """Run the setup tasks for a certain software package"""
         if software == 'vim':
             message('info', 'Installing vim bundles')
-            if subprocess.call(vundle_clone_call):
-                message('info', 'Vundle clone failed, trying to use anyway')
-            subprocess.call(vundle_plugin_call)
+            if subprocess.call(vimplug_install_call):
+                message('info', 'vim-plug download failed, trying to use anyway')
+            subprocess.call(vimplug_plugin_call)
         elif software == 'ohmyzsh':
             message('info', 'Installing ohmyzsh')
             if subprocess.call(ohmyzsh_clone_call):
