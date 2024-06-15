@@ -81,7 +81,7 @@ class LinkManager():
             'sway.manual': os.path.join(userdir, '.config', 'sway', 'config'),
             'waybar.manual': os.path.join(userdir, '.config', 'waybar', 'config'),
             'waystyle.manual': os.path.join(userdir, '.config', 'waybar', 'style.css'),
-            'terminator.manual': os.path.join(userdir, '.config', 'terminator', 'config')}
+            'foot.manual': os.path.join(userdir, '.config', 'foot', 'foot.ini')}
         return maplinks[linkname]
 
 
