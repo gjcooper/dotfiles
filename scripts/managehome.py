@@ -8,7 +8,8 @@ import argparse
 
 userdir = os.path.expanduser('~')
 scriptdir = os.path.join(userdir, '.local', 'bin')
-vimplug_install_call = ['curl', '-fLo', '~/.vim/autoload/plug.vim', '--create-dirs',
+vimplug_location = os.path.expanduser('~/.vim/autoload/plug.vim')
+vimplug_install_call = ['curl', '-fLo', vimplug_location, '--create-dirs',
                       'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim']
 vimplug_plugin_call = ['vim', '+PlugInstall', '+qall']
 ohmyzsh_clone_call = ['git', 'clone', 'https://github.com/robbyrussell/oh-my-zsh.git', os.path.join(userdir, '.oh-my-zsh')]
@@ -65,7 +66,7 @@ class LinkManager():
             elif rl.endswith('.config'):
                 self.links[rl] = self.__configname__(rl)
             else:
-                raise RuntimeError('Unknown link type for setup script')
+                raise RuntimeError('Unknown link type for setup script {}'.format(rl))
 
     def fullpath(self, filename):
         """Return the full path for a given link file"""
@@ -77,8 +78,9 @@ class LinkManager():
             'i3config.manual': os.path.join(userdir, '.config', 'i3', 'config'),
             'i3statconfig.manual': os.path.join(userdir, '.config', 'i3status', 'config'),
             'flake8.manual': os.path.join(userdir, '.config', 'flake8'),
-            'praw.manual': os.path.join(userdir, '.config', 'praw.ini'),
-            'conkyrc1.manual': os.path.join(userdir, 'conkyrc1'),
+            'sway.manual': os.path.join(userdir, '.config', 'sway', 'config'),
+            'waybar.manual': os.path.join(userdir, '.config', 'waybar', 'config'),
+            'waystyle.manual': os.path.join(userdir, '.config', 'waybar', 'style.css'),
             'terminator.manual': os.path.join(userdir, '.config', 'terminator', 'config')}
         return maplinks[linkname]
 
