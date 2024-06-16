@@ -25,6 +25,8 @@
 		"custom/spacer",
 		"disk",
 		"custom/spacer",
+		"network",
+		"custom/spacer",
 		"tray"
 	],
 
@@ -47,7 +49,7 @@
 		"tooltip": false
 	},
 	"clock#3": {
-		"format": "{:%m-%d}",
+		"format": "{:%d-%m-%y}",
 		"tooltip": false
 	},
 
@@ -93,6 +95,15 @@
 		"interval": 5,
 		"format": "Disk {percentage_used:2}%",
 		"path": "/"
+	},
+    "network": {
+		"interface": "wlp1s0",
+		"format": "{ifname}",
+		"format-wifi": " {signalStrength}%",
+		"format-disconnected": "", //An empty format will hide the module.
+		"tooltip-format": "{ipaddr} via {essid}",
+		"tooltip-format-disconnected": "Disconnected",
+		"max-length": 50
 	},
 	"tray": {
 		"icon-size": 20
