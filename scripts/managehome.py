@@ -8,12 +8,15 @@ import argparse
 
 userdir = os.path.expanduser('~')
 scriptdir = os.path.join(userdir, '.local', 'bin')
-vundle_clone_call = ['git', 'clone', 'https://github.com/VundleVim/Vundle.vim.git', os.path.join(userdir, '.vim', 'bundle', 'Vundle.vim')]
-vundle_plugin_call = ['vim', '+PluginInstall', '+qall']
+vimplug_location = os.path.expanduser('~/.vim/autoload/plug.vim')
+vimplug_install_call = ['curl', '-fLo', vimplug_location, '--create-dirs',
+                      'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim']
+vimplug_plugin_call = ['vim', '+PlugInstall', '+qall']
 ohmyzsh_clone_call = ['git', 'clone', 'https://github.com/robbyrussell/oh-my-zsh.git', os.path.join(userdir, '.oh-my-zsh')]
 apt_software_list = ['curl', 'vim-gtk', 'gitk', 'zsh', 'tmux', 'dos2unix', 'i3',
-                 'terminator', 'suckless-tools', 'dbus-x11', 'xsel',
-                 'dkms', 'feh', 'conky', 'compton']
+                     'terminator', 'suckless-tools', 'dbus-x11', 'xsel',
+                     'sway', 'swaylock', 'swayidle', 'swaybg',
+                     'dkms', 'feh', 'compton']
 other_software = ['curl https://pyenv.run | bash']
 
 
@@ -65,7 +68,7 @@ class LinkManager():
             elif rl.endswith('.config'):
                 self.links[rl] = self.__configname__(rl)
             else:
-                raise RuntimeError('Unknown link type for setup script')
+                raise RuntimeError('Unknown link type for setup script {}'.format(rl))
 
     def fullpath(self, filename):
         """Return the full path for a given link file"""
@@ -77,9 +80,11 @@ class LinkManager():
             'i3config.manual': os.path.join(userdir, '.config', 'i3', 'config'),
             'i3statconfig.manual': os.path.join(userdir, '.config', 'i3status', 'config'),
             'flake8.manual': os.path.join(userdir, '.config', 'flake8'),
-            'praw.manual': os.path.join(userdir, '.config', 'praw.ini'),
-            'conkyrc1.manual': os.path.join(userdir, 'conkyrc1'),
-            'terminator.manual': os.path.join(userdir, '.config', 'terminator', 'config')}
+            'terminator.manual': os.path.join(userdir, '.config', 'terminator', 'config'),
+            'sway.manual': os.path.join(userdir, '.config', 'sway', 'config'),
+            'waybar.manual': os.path.join(userdir, '.config', 'waybar', 'config'),
+            'waystyle.manual': os.path.join(userdir, '.config', 'waybar', 'style.css'),
+            'foot.manual': os.path.join(userdir, '.config', 'foot', 'foot.ini')}
         return maplinks[linkname]
 
 
@@ -174,9 +179,9 @@ class SetupManager():
         """Run the setup tasks for a certain software package"""
         if software == 'vim':
             message('info', 'Installing vim bundles')
-            if subprocess.call(vundle_clone_call):
-                message('info', 'Vundle clone failed, trying to use anyway')
-            subprocess.call(vundle_plugin_call)
+            if subprocess.call(vimplug_install_call):
+                message('info', 'vim-plug download failed, trying to use anyway')
+            subprocess.call(vimplug_plugin_call)
         elif software == 'ohmyzsh':
             message('info', 'Installing ohmyzsh')
             if subprocess.call(ohmyzsh_clone_call):

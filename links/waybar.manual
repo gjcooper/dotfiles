@@ -1,0 +1,111 @@
+// -*- mode: json -*-
+
+{
+	"layer": "top",
+	"position": "bottom",
+
+	"modules-left": [
+		"sway/workspaces",
+	],
+	"modules-center": [
+		"clock#1",
+		"custom/spacer",
+		"clock#2",
+		"custom/spacer",
+		"clock#3",
+	],
+	"modules-right": [
+		"pulseaudio",
+		"custom/spacer",
+		"memory",
+		"custom/spacer",
+		"cpu",
+		"custom/spacer",
+		"battery",
+		"custom/spacer",
+		"disk",
+		"custom/spacer",
+		"network",
+		"custom/spacer",
+		"tray"
+	],
+
+	"custom/spacer": {
+		"format": " ",
+		"tooltip": false
+	},
+
+	"sway/workspaces": {
+		"disable-scroll": true,
+		"format": "{value}"
+	},
+
+	"clock#1": {
+		"format": "{:%a}",
+		"tooltip": false
+	},
+	"clock#2": {
+		"format": "{:%H:%M}",
+		"tooltip": false
+	},
+	"clock#3": {
+		"format": "{:%d-%m-%y}",
+		"tooltip": false
+	},
+
+	"pulseaudio": {
+		"format": "{icon} {volume:2}%",
+		"format-bluetooth": "{icon}  {volume}%",
+		"format-muted": "MUTE",
+		"format-icons": {
+			"headphones": "",
+			"default": [
+				"",
+				""
+			]
+		},
+		"scroll-step": 5,
+		"on-click": "pamixer -t",
+		"on-click-right": "pavucontrol"
+	},
+	"memory": {
+		"interval": 5,
+		"format": "Mem {}%"
+	},
+	"cpu": {
+		"interval": 5,
+		"format": "CPU {usage:2}%"
+	},
+	"battery": {
+		"states": {
+			"good": 95,
+			"warning": 30,
+			"critical": 15
+		},
+		"format": "{icon} {capacity}%",
+		"format-icons": [
+			"",
+			"",
+			"",
+			"",
+			""
+		]
+	},
+	"disk": {
+		"interval": 5,
+		"format": "Disk {percentage_used:2}%",
+		"path": "/"
+	},
+    "network": {
+		"interface": "wlp1s0",
+		"format": "{ifname}",
+		"format-wifi": " {signalStrength}%",
+		"format-disconnected": "", //An empty format will hide the module.
+		"tooltip-format": "{ipaddr} via {essid}",
+		"tooltip-format-disconnected": "Disconnected",
+		"max-length": 50
+	},
+	"tray": {
+		"icon-size": 20
+	}
+}

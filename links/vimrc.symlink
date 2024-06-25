@@ -1,6 +1,4 @@
 "remove vi compatibility
-set nocompatible " Not needed when vimrc exists
-
 call plug#begin('~/.vim/plugged')
 
 " let vim-plug manage vim-plug, required for help
@@ -74,6 +72,9 @@ Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 
 Plug 'jpalardy/vim-slime'
 
+" Stan syntax etc
+Plug 'eigenfoo/stan-vim'
+
 
 call plug#end()            " required
 " Modelines=0 means vim does not check files it is opening for commands to
@@ -132,6 +133,8 @@ autocmd FileType python nnoremap <silent> <leader>r :!clear;python %<CR>
 autocmd FileType python\|enaml set sts=4 ts=4 sw=4 cc=80 fdm=indent foldnestmax=3
 let g:ultisnips_python_quoting_style="single"
 let g:ultisnips_python_style="numpy"
+" Set foldmethod and foldexpr for conf files
+autocmd FileType conf set fdm=expr fde=indent(v:lnum)/&shiftwidth
 
 " Narrower tabwidth for html/css
 autocmd FileType html\|css\|javascript\|json set sts=2 ts=2 sw=2 cc=80 foldmethod=syntax
