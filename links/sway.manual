@@ -133,7 +133,7 @@ include /etc/sway/config-vars.d/*
     # Workspaces:
     #
     # Workspace names
-    set $tag1 "1: Terminal"
+    set $tag1 "1: Term"
     set $tag2 "2: VAULT"
     set $tag3 "3: Web"
     set $tag4 "4: Zoom"
