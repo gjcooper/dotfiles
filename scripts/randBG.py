@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import os
+from pathlib import Path
 import sys
 import subprocess
 import random
@@ -7,9 +7,7 @@ import time
 import logging
 logging.basicConfig(filename='randBG.log',level=logging.DEBUG)
 logging.info('Script start')
-picdir = os.path.join(os.path.expanduser('~'), 'Pictures')
-bgdir = os.path.join(picdir, 'bgs')
-promptdir = os.path.join(picdir, 'prompts')
+bgdir = Path.home() / 'Pictures' / 'bgs'
 
 
 def getonemon():
@@ -19,27 +17,15 @@ def getonemon():
     return mode in {'EXTERNAL', 'INTERNAL'}
 
 
-def getpics(*dirs):
-    """return list of suitable pics from dir provided"""
-    piclists = []
-    for picdir in dirs:
-        piclists.append([os.path.join(picdir, f) for f in os.listdir(picdir) if f.endswith('.jpg')])
-    return piclists
-
-
 def looping(sleeptime):
     """Change the desktop BG every sleeptime minutes"""
     while True:
-        bgpics, promptpics = getpics(bgdir, promptdir)
+        bgpics = list(bgdir.iterdir())
         if getonemon():
             subprocess.call(['feh', '--auto-rotate', '--bg-fill', random.choice(bgpics)])
         else:
-            if random.choice([0, 1]):
-                subprocess.call(['feh', '--auto-rotate', '--bg-fill', random.choice(bgpics),
-                                 '--auto-rotate', '--bg-fill', random.choice(promptpics)])
-            else:
-                subprocess.call(['feh', '--auto-rotate', '--bg-fill', random.choice(promptpics),
-                                 '--auto-rotate', '--bg-fill', random.choice(bgpics)])
+            subprocess.call(['feh', '--auto-rotate', '--bg-fill', random.choice(bgpics),
+                '--auto-rotate', '--bg-fill', random.choice(promptpics)])
         time.sleep(60 * sleeptime)
 
 
