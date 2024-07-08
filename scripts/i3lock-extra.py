@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
-import os
+from pathlib import Path
 import subprocess
 import re
 
 
-icon = os.path.join(os.path.expanduser('~'), '.i3lock.png')
-tmpbg = '/tmp/screen.png'
+icon = Path.home() / '.i3lock.png'
+tmpbg = Path('/tmp/screen.png')
+bgimg = Path.home() / 'Pictures' / 'lockscreen.png'
 
-def	place_locks():
+def	place_locks(bgimg, tmpbg):
     '''Place lock images on the screen(s)'''
     # lockscreen image info
     icon_info = subprocess.check_output(['file', '-L', icon], universal_newlines=True)
@@ -26,11 +27,14 @@ def	place_locks():
         res_x, res_y = [int(res) for res in dim[0].split('x')]
         off_x, off_y = [int(off) for off in dim[1].split('+')]
         p_x, p_y = off_x + res_x/2 - icon_x/2, off_y + res_y/2 - icon_y/2
-        subprocess.call(['convert', tmpbg, icon, '-geometry',
+        subprocess.call(['convert', bgimg, icon, '-geometry',
                          '+{}+{}'.format(p_x, p_y), '-composite', '-matte',
                          tmpbg])
 
-subprocess.call(['scrot', '-o', tmpbg])
-subprocess.call(['convert', tmpbg, '-scale', '10%', '-scale', '1000%', tmpbg])
-place_locks()
+if not bgimg.exists():
+    subprocess.call(['scrot', '-o', tmpbg])
+    subprocess.call(['convert', tmpbg, '-scale', '10%', '-scale', '1000%', tmpbg])
+    place_locks(tmpbg, tmpbg)
+else:
+    tmpbg = bgimg
 subprocess.call(['i3lock', '-i', tmpbg])
