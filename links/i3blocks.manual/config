@@ -65,6 +65,7 @@ interval=30
 [iface]
 label=
 color=#66FF66
+IFACE=wlp1s0
 interval=10
 
 # CPU usage
