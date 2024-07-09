@@ -38,7 +38,7 @@ Plug 'gjcooper/mysnippets'  " My vim snippets
 Plug 'rickhowe/diffchar.vim' " Character level diff views
 Plug 'AndrewRadev/linediff.vim' " Block level diff
 
-Plug 'jalvesaq/Nvim-R' " R code support within vim
+Plug 'jalvesaq/Nvim-R', {'tag': 'v0.9.16'} " R code support within vim
 
 Plug 'gjcooper/vim-local'
 
