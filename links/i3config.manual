@@ -22,7 +22,7 @@
     # is used in the bar {} block below.
     # This font is widely installed, provides lots of unicode glyphs, right-to-left
     # text rendering and scalability on retina/hidpi displays (thanks to pango).
-    font pango:DejaVu Sans Mono 8
+    font pango:DejaVu Sans Mono 10
 
     #Use compton for compositing (fixes transparency in terminator)
     exec --no-startup-id compton --opacity-rule '100:window_type = "dock" && class_g = "i3bar"' 
