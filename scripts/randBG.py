@@ -10,22 +10,11 @@ logging.info('Script start')
 bgdir = Path.home() / 'Pictures' / 'bgs'
 
 
-def getonemon():
-    """check whether one monitor (True) or Two (False)"""
-    with open('/tmp/monitor_mode.dat') as monfile:
-        mode = monfile.read().strip()
-    return mode in {'EXTERNAL', 'INTERNAL'}
-
-
 def looping(sleeptime):
     """Change the desktop BG every sleeptime minutes"""
     while True:
         bgpics = list(bgdir.iterdir())
-        if getonemon():
-            subprocess.call(['feh', '--auto-rotate', '--bg-fill', random.choice(bgpics)])
-        else:
-            subprocess.call(['feh', '--auto-rotate', '--bg-fill', random.choice(bgpics),
-                '--auto-rotate', '--bg-fill', random.choice(promptpics)])
+        subprocess.call(['feh', '--auto-rotate', '--bg-fill', random.choice(bgpics)])
         time.sleep(60 * sleeptime)
 
 

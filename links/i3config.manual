@@ -22,7 +22,7 @@
     # is used in the bar {} block below.
     # This font is widely installed, provides lots of unicode glyphs, right-to-left
     # text rendering and scalability on retina/hidpi displays (thanks to pango).
-    font pango:DejaVu Sans Mono 10
+    font pango:DejaVu Sans Mono, RobotoMono Nerd Font 10
 
     #Use compton for compositing (fixes transparency in terminator)
     exec --no-startup-id compton --opacity-rule '100:window_type = "dock" && class_g = "i3bar"' 
@@ -33,8 +33,8 @@
     #Suspend/Sleep
     bindsym $mod+Shift+s exec "i3lock-extra && systemctl suspend"
     # Switch monitors
-    bindsym $mod+p exec echo "M" >> /tmp/monitor_pipe
-    bindsym $mod+Shift+p exec echo "S" >> /tmp/monitor_pipe
+    bindsym $mod+p exec auto-cycle -c
+    bindsym $mod+Shift+p exec auto-cycle -s
     bindsym $mod+o move workspace to output right
     bindsym $mod+Shift+o move workspace to output up
     # Toggle touchpad input
@@ -43,11 +43,11 @@
     # Start some programs
     exec --no-startup-id sleep 2 && randBG
     exec --no-startup-id sleep 3 && xfce4-power-manager
-    exec --no-startup-id monitor
     exec --no-startup-id dunst
     exec --no-startup-id udiskie
     exec --no-startup-id gnome-settings-daemon
     exec --no-startup-id pasystray
+    exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
 
 ### Key bindings
 
@@ -99,20 +99,20 @@
 
     # Volume controls
     # Pulse Audio controls
-    bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
+    bindsym XF86AudioRaiseVolume exec --no-startup-id wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
     bindsym XF86AudioRaiseVolume --release exec pkill -RTMIN+1 i3blocks
-    bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
+    bindsym XF86AudioLowerVolume exec --no-startup-id wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
     bindsym XF86AudioLowerVolume --release exec pkill -RTMIN+1 i3blocks
-    bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+    bindsym XF86AudioMute exec --no-startup-id wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
     bindsym XF86AudioMute --release exec pkill -RTMIN+1 i3blocks
-    bindsym Shift+XF86AudioRaiseVolume exec --no-startup-id pactl set-source-volume @DEFAULT_SOURCE@ +5%
-    bindsym Shift+XF86AudioLowerVolume exec --no-startup-id pactl set-source-volume @DEFAULT_SOURCE@ -5%
-    bindsym Shift+XF86AudioMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
+    bindsym Shift+XF86AudioRaiseVolume exec --no-startup-id wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%+
+    bindsym Shift+XF86AudioLowerVolume exec --no-startup-id wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%-
+    bindsym Shift+XF86AudioMute exec --no-startup-id wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
 
     # Brightness controls
     #
-    bindsym XF86MonBrightnessDown exec --no-startup-id light -U 10
-    bindsym XF86MonBrightnessUp exec --no-startup-id light -A 10
+    bindsym XF86MonBrightnessDown exec --no-startup-id light -U 5
+    bindsym XF86MonBrightnessUp exec --no-startup-id light -A 5
 
     # Workspaces:
     #
@@ -239,8 +239,3 @@
     client.urgent           #cc241d #cc241d #ebdbb2 #cc241d   #cc241d
     client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
     client.background       #ffffff
-
-
-    # Start programs on load
-    #
-    exec --no-startup-id sleep 2 && randBG

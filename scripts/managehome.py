@@ -2,17 +2,18 @@
 #
 import sys
 import os
+from pathlib import Path
 import subprocess
 import itertools
 import argparse
 
-userdir = os.path.expanduser('~')
-scriptdir = os.path.join(userdir, '.local', 'bin')
-vimplug_location = os.path.expanduser('~/.vim/autoload/plug.vim')
+userdir = Path.home()
+scriptdir = userdir / '.local' / 'bin'
+vimplug_location = userdir / '.vim' / 'autoload' / 'plug.vim'
 vimplug_install_call = ['curl', '-fLo', vimplug_location, '--create-dirs',
                       'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim']
 vimplug_plugin_call = ['vim', '+PlugInstall', '+qall']
-ohmyzsh_clone_call = ['git', 'clone', 'https://github.com/robbyrussell/oh-my-zsh.git', os.path.join(userdir, '.oh-my-zsh')]
+ohmyzsh_clone_call = ['git', 'clone', 'https://github.com/robbyrussell/oh-my-zsh.git', userdir / '.oh-my-zsh']
 apt_software_list = ['curl', 'vim-gtk', 'gitk', 'zsh', 'tmux', 'dos2unix', 'i3',
                      'terminator', 'suckless-tools', 'dbus-x11', 'xsel',
                      'sway', 'swaylock', 'swayidle', 'swaybg',
@@ -20,19 +21,20 @@ apt_software_list = ['curl', 'vim-gtk', 'gitk', 'zsh', 'tmux', 'dos2unix', 'i3',
 other_software = ['curl https://pyenv.run | bash']
 
 
-def directory_path(string):
-    """takes a string and returns it if it refers to a directory,
+def directory_path(path_str):
+    """takes a string and returns a Path if it refers to a directory,
     otherwise raise and argparse.ArgumentError"""
-    if os.path.isdir(string):
-        return string
-    raise argparse.ArgumentTypeError('{} does not point to a directory'.format(string))
+    pth = Path(path_str)
+    if pth.is_dir():
+        return pth
+    raise argparse.ArgumentTypeError('{} does not point to a directory'.format(pth))
 
 
 class LinkManager():
     """manages all links for the setup script"""
     def __init__(self, basedir):
         super().__init__()
-        self.rawlinks = os.listdir(basedir)
+        self.rawlinks = basedir.iterdir()
         self.basedir = basedir
         self.links = {}
         self.base = {}
@@ -41,18 +43,18 @@ class LinkManager():
 
     def __linkname__(self, srclinkname):
         """get destination link name from source file"""
-        linksplit = srclinkname.split('.')
+        linksplit = str(srclinkname).split('.')
         try:
-            return os.path.join(userdir, '.' + '.'.join(linksplit[0:-1]))
+            return userdir / '.' + '.'.join(linksplit[0:-1]))
         except IndexError:
             message('fail', 'Unable to find 2nd last component of {}'.format(srclinkname + ":" + linksplit))
 
     def __configname__(self, srclinkname):
         """get destination link name from source file, new type of config file that
         is placed in a .config folder within the users home dir"""
-        linksplit = srclinkname.split('.')
+        linksplit = str(srclinkname).split('.')
         try:
-            return os.path.join(userdir, '.config', '.'.join(linksplit[0:-1]))
+            return userdir /'.config' / '.'.join(linksplit[0:-1]))
         except IndexError:
             message('fail', 'Unable to find 2nd last component of {}'.format(srclinkname + ":" + linksplit))
 
@@ -72,27 +74,28 @@ class LinkManager():
 
     def fullpath(self, filename):
         """Return the full path for a given link file"""
-        return os.path.join(self.basedir, filename)
+        return basedir / filename
 
     def lookUp(self, linkname):
         """look up the final location for a manual link file"""
         maplinks = {
-            'i3config.manual': os.path.join(userdir, '.config', 'i3', 'config'),
-            'i3statconfig.manual': os.path.join(userdir, '.config', 'i3status', 'config'),
-            'flake8.manual': os.path.join(userdir, '.config', 'flake8'),
-            'terminator.manual': os.path.join(userdir, '.config', 'terminator', 'config'),
-            'sway.manual': os.path.join(userdir, '.config', 'sway', 'config'),
-            'waybar.manual': os.path.join(userdir, '.config', 'waybar', 'config'),
-            'waystyle.manual': os.path.join(userdir, '.config', 'waybar', 'style.css'),
-            'foot.manual': os.path.join(userdir, '.config', 'foot', 'foot.ini')}
+            'i3config.manual': userdir / '.config/i3/config',
+            'i3statconfig.manual': userdir / '.config/i3status/config',
+            'i3blocks.manual': userdir / '.config/i3blocks'),
+            'flake8.manual': userdir / '.config/flake8'),
+            'terminator.manual': userdir, '.config/terminator/config'),
+            'sway.manual': userdir / '.config/sway/config'),
+            'waybar.manual': userdir / '.config/waybar/config'),
+            'waystyle.manual': userdir / '.config/waybar/style.css'),
+            'foot.manual': userdir / '.config/foot/foot.ini')}
         return maplinks[linkname]
 
 
 class SetupManager():
     '''Manages home directory setup for the script'''
     def __init__(self, repodir):
-        self.repodir = os.path.abspath(repodir)
-        self.linkman = LinkManager(os.path.join(self.repodir, 'links'))
+        self.repodir = repodir.resolve()
+        self.linkman = LinkManager(self.repodir / 'links'))
 
     def getinput(self, text):
         message('user', text)
@@ -142,7 +145,7 @@ class SetupManager():
     def regen_or_ignore(self, src, dest):
         '''After a failed symlink call, either regenerate or continue'''
         if self.getinput('{} already exists, Regenerate (y/N)'.format(dest)).upper() == 'Y':
-            os.remove(dest)
+            dest.unlink()
             os.symlink(src, dest)
 
     def install_software(self):
@@ -157,6 +160,7 @@ class SetupManager():
         if not os.path.exists(scriptdir):
             os.makedirs(scriptdir)
         for script in os.listdir(os.path.join(userdir, 'dotfiles', 'scripts')):
+
             ans = self.getinput('Install {}? (Y/n)'.format(script))
             if ans.lower() in {'', 'y', 'yes'}:
                 os.symlink(os.path.join(userdir, 'dotfiles', 'scripts', script),

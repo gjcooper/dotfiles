@@ -145,17 +145,18 @@ let R_tmux_title = 'automatic'
 let R_assign= 2
 let R_pdfviewer = 'xpdf'
 "For use with nvim-r so that commented lines get sent to R console
-let R_commented_lines = 1
+" let R_commented_lines = 1 - option removed
 "Fold method and file settings for R
 autocmd FileType r set fdm=syntax sts=2 ts=2 sw=2 cc=80 
-autocmd FileType r inoremap <buffer> >> <Esc>:normal! a %>%<CR>a
+"autocmd FileType r inoremap <buffer> >> <Esc>:normal! a %>%<CR>a
+autocmd FileType r inoremap <buffer> >> <Esc>:normal! a \|><CR>a
 let r_syntax_folding = 1
 "tab key matches bracket pairs
 nnoremap <tab> %
 vnoremap <tab> %
 "Fold method and file settings for Rmd
 autocmd FileType rmd set sts=2 ts=2 sw=2 cc=80
-autocmd FileType rmd inoremap <buffer> >> <Esc>:normal! a %>%<CR>a
+autocmd FileType rmd inoremap <buffer> >> <Esc>:normal! a \|><CR>a
 autocmd FileType vimwiki set sts=2 ts=2 sw=2 cc=80
 "Fold method and file settings for RST
 autocmd FileType rst set sts=3 ts=3 sw=3 cc=80
@@ -227,8 +228,9 @@ function! DiffModeToggle()
 	endif
 endfunction
 
-let g:ale_linters = {'javascript': ['eslint'], 'css': ['eslint'], 'r': ['lintr'], 'xml': ['xmllint'], 'tex': ['lacheck']}
+let g:ale_linters = {'sh': ['shellcheck'], 'javascript': ['eslint'], 'css': ['eslint'], 'r': ['lintr'], 'xml': ['xmllint'], 'tex': ['lacheck']}
 let g:ale_fixers = {'javascript': ['prettier'], 'css': ['prettier'], 'html': ['prettier'], 'r': ['styler']}
+let g:ale_r_lintr_lint_package = 1
 
 " Vimwiki settings
 let g:vimwiki_list = [{
