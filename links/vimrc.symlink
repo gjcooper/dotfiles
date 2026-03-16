@@ -75,6 +75,9 @@ Plug 'jpalardy/vim-slime'
 " Stan syntax etc
 Plug 'eigenfoo/stan-vim'
 
+" Use release branch (recommended)
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
 
 call plug#end()            " required
 " Modelines=0 means vim does not check files it is opening for commands to
@@ -262,3 +265,4 @@ let g:pandoc#keyboard#blacklist_submodule_mappings = ['checkboxes']
 " Ultisnips settings
 autocmd FileType javascript UltiSnipsAddFiletypes javascript-jsdoc
 
+source ~/.vim/settings/coc.vim
