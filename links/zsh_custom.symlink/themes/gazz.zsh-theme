@@ -6,7 +6,7 @@ RPROMPT='$(vi_mode_prompt_info) $(virtualenv_prompt_info) $(git_prompt_info) %F{
 
 ZSH_THEME_GIT_PROMPT_PREFIX="%F{green}<%{$fg[red]%}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
-ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[green]%}%{$fg[yellow]%}⚡%{$fg[green]%}>%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[green]%}%F{226}⚡%{$fg[green]%}>%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[green]%}>"
 
 MODE_INDICATOR="%{$fg_bold[magenta]%}<%{$reset_color%}%{$fg[magenta]%}<<%{$reset_color%}"

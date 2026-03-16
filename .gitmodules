@@ -1,0 +1,3 @@
+[submodule "links/alacritty.manual/themes"]
+	path = links/alacritty.manual/themes
+	url = https://github.com/alacritty/alacritty-theme
